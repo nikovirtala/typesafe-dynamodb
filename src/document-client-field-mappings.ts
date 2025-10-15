@@ -4,7 +4,7 @@
 export type ToDocumentClient<
   T extends {
     [k in string]: any;
-  }
+  },
 > = {
   batchGet: T["batchGetItem"];
   batchWrite: T["batchWriteItem"];

@@ -2,12 +2,12 @@ import "jest";
 
 import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
 import { DynamoDBDocumentClient } from "@aws-sdk/lib-dynamodb";
-import { TypeSafeDocumentClientV3 } from "../src/document-client-v3";
-import { TypeSafePutDocumentCommand } from "../src/put-document-command";
-import { TypeSafeUpdateDocumentCommand } from "../src/update-document-command";
-import { TypeSafeQueryDocumentCommand } from "../src/query-document-command";
-import { TypeSafeGetDocumentCommand } from "../src/get-document-command";
 import { TypeSafeDeleteDocumentCommand } from "../src/delete-document-command";
+import { TypeSafeDocumentClientV3 } from "../src/document-client-v3";
+import { TypeSafeGetDocumentCommand } from "../src/get-document-command";
+import { TypeSafePutDocumentCommand } from "../src/put-document-command";
+import { TypeSafeQueryDocumentCommand } from "../src/query-document-command";
+import { TypeSafeUpdateDocumentCommand } from "../src/update-document-command";
 
 interface MyType {
   key: string;
@@ -18,7 +18,7 @@ interface MyType {
 const client = new DynamoDBClient({});
 
 const docClient = DynamoDBDocumentClient.from(
-  client
+  client,
 ) as TypeSafeDocumentClientV3<MyType, "key", "sort">;
 
 const PutItemCommand = TypeSafePutDocumentCommand<MyType>();
@@ -48,7 +48,7 @@ export async function foo() {
         sort: 1,
       },
       ProjectionExpression: "sort, key",
-    })
+    }),
   );
   get.Item?.key;
   // @ts-expect-error
@@ -74,7 +74,7 @@ export async function foo() {
         list: [],
         sort: 1,
       },
-    })
+    }),
   );
   put.Attributes?.key;
 
@@ -96,7 +96,7 @@ export async function foo() {
         // @ts-expect-error
         sort: "",
       },
-    })
+    }),
   );
   del.Attributes?.key;
 
@@ -121,7 +121,7 @@ export async function foo() {
       ExpressionAttributeValues: {
         ":val": "val",
       },
-    })
+    }),
   );
   query.Items?.[0].key;
 
@@ -158,7 +158,7 @@ export async function updateItem() {
         ":v_2": "val_2",
       },
       ConditionExpression: "#k = :v2",
-    })
+    }),
   );
   // @ts-expect-error - default ReturnValues is None
   defaultBehavior.Attributes?.key;
@@ -172,7 +172,7 @@ export async function updateItem() {
       },
       UpdateExpression: "a = 1",
       ReturnValues: "NONE",
-    })
+    }),
   );
   // @ts-expect-error - nothing is Returned
   returnNone.Attributes?.key;
@@ -186,7 +186,7 @@ export async function updateItem() {
       },
       UpdateExpression: "a = 1",
       ReturnValues: "ALL_NEW",
-    })
+    }),
   );
   returnAllNew.Attributes?.key?.length;
 
@@ -199,7 +199,7 @@ export async function updateItem() {
       },
       UpdateExpression: "a = 1",
       ReturnValues: "ALL_OLD",
-    })
+    }),
   );
   returnAllOld.Attributes?.key?.length;
 
@@ -212,7 +212,7 @@ export async function updateItem() {
       },
       UpdateExpression: "a = 1",
       ReturnValues: "UPDATED_NEW",
-    })
+    }),
   );
   returnUpdatedNew.Attributes?.key?.length;
 
@@ -225,7 +225,7 @@ export async function updateItem() {
       },
       UpdateExpression: "a = 1",
       ReturnValues: "UPDATED_OLD",
-    })
+    }),
   );
   returnUpdatedOld.Attributes?.key?.length;
 }

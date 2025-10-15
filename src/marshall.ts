@@ -17,18 +17,18 @@ import {
 
 export const marshall: <
   Item extends object,
-  MarshallOptions extends marshallOptions | undefined
+  MarshallOptions extends marshallOptions | undefined,
 >(
   item: Item,
-  options?: MarshallOptions
+  options?: MarshallOptions,
 ) => ToAttributeMap<Item> = _marshall;
 
 export const unmarshall: <
   Item extends AttributeMap,
-  UnmarshallOptions extends unmarshallOptions | undefined
+  UnmarshallOptions extends unmarshallOptions | undefined,
 >(
   item: Item,
-  options?: UnmarshallOptions
+  options?: UnmarshallOptions,
 ) => {
   [prop in keyof Item]: Unmarshall<Item[prop], UnmarshallOptions>;
 } = _unmarshall as any;
@@ -39,28 +39,29 @@ export interface NumberValue<N extends number> {
 
 export type Unmarshall<
   T,
-  UnmarshallOptions extends unmarshallOptions | undefined
-> = T extends S<infer s>
-  ? s
-  : T extends B
-  ? NativeBinaryAttribute
-  : T extends N<infer n>
-  ? Exclude<UnmarshallOptions, undefined>["wrapNumbers"] extends true
-    ? NumberValue<n>
-    : n
-  : T extends Date
-  ? string
-  : T extends L<infer Items>
-  ? {
-      [i in keyof Items]: i extends "length"
-        ? Items[i]
-        : Unmarshall<Items[i], UnmarshallOptions>;
-    }
-  : T extends M<infer Attributes>
-  ? {
-      [prop in keyof Attributes]: Unmarshall<
-        Attributes[prop],
-        UnmarshallOptions
-      >;
-    }
-  : never;
+  UnmarshallOptions extends unmarshallOptions | undefined,
+> =
+  T extends S<infer s>
+    ? s
+    : T extends B
+      ? NativeBinaryAttribute
+      : T extends N<infer n>
+        ? Exclude<UnmarshallOptions, undefined>["wrapNumbers"] extends true
+          ? NumberValue<n>
+          : n
+        : T extends Date
+          ? string
+          : T extends L<infer Items>
+            ? {
+                [i in keyof Items]: i extends "length"
+                  ? Items[i]
+                  : Unmarshall<Items[i], UnmarshallOptions>;
+              }
+            : T extends M<infer Attributes>
+              ? {
+                  [prop in keyof Attributes]: Unmarshall<
+                    Attributes[prop],
+                    UnmarshallOptions
+                  >;
+                }
+              : never;

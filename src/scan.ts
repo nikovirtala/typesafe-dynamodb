@@ -1,22 +1,22 @@
+import type {
+  DynamoDBClientResolvedConfig,
+  ScanCommand as _ScanCommand,
+} from "@aws-sdk/client-dynamodb";
+import type { MetadataBearer } from "@aws-sdk/types";
+import type { Command } from "@smithy/smithy-client";
 import type { DynamoDB } from "aws-sdk";
 import type {
   ExpressionAttributeNames,
   ExpressionAttributeValues,
 } from "./expression-attributes";
 import type { FormatObject, JsonFormat } from "./json-format";
-import type {
-  DynamoDBClientResolvedConfig,
-  ScanCommand as _ScanCommand,
-} from "@aws-sdk/client-dynamodb";
-import type { Command } from "@smithy/smithy-client";
-import type { MetadataBearer } from "@aws-sdk/types";
 
 export type ScanInput<
   Item extends object,
   FilterExpression extends string | undefined,
   ProjectionExpression extends string | undefined,
   AttributesToGet extends keyof Item | undefined,
-  Format extends JsonFormat
+  Format extends JsonFormat,
 > = Omit<
   DynamoDB.ScanInput,
   | "AttributesToGet"
@@ -34,7 +34,7 @@ export type ScanInput<
 export interface ScanOutput<
   Item extends object,
   AttributesToGet extends keyof Item | undefined,
-  Format extends JsonFormat
+  Format extends JsonFormat,
 > extends Omit<DynamoDB.ScanOutput, "Items"> {
   Items?: FormatObject<
     undefined extends AttributesToGet
@@ -47,7 +47,7 @@ export interface ScanOutput<
 export type ScanCommand<Item extends object, Format extends JsonFormat> = new <
   const FilterExpression extends string | undefined,
   const ProjectionExpression extends string | undefined,
-  const AttributesToGet extends keyof Item | undefined
+  const AttributesToGet extends keyof Item | undefined,
 >(
   input: ScanInput<
     Item,
@@ -55,7 +55,7 @@ export type ScanCommand<Item extends object, Format extends JsonFormat> = new <
     ProjectionExpression,
     AttributesToGet,
     Format
-  >
+  >,
 ) => Command<
   ScanInput<
     Item,

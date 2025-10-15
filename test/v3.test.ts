@@ -3,8 +3,8 @@
 import "jest";
 
 import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
-import { TypeSafeGetItemCommand } from "../src/get-item-command";
 import { TypeSafeDeleteItemCommand } from "../src/delete-item-command";
+import { TypeSafeGetItemCommand } from "../src/get-item-command";
 import { TypeSafePutItemCommand } from "../src/put-item-command";
 import { TypeSafeQueryCommand } from "../src/query-command";
 import { TypeSafeUpdateItemCommand } from "../src/update-item-command";
@@ -60,7 +60,7 @@ export async function foo() {
           N: "1",
         },
       },
-    })
+    }),
   );
   put.Attributes?.key;
 
@@ -76,7 +76,7 @@ export async function foo() {
           S: "",
         },
       },
-    })
+    }),
   );
   del.Attributes?.key;
 
@@ -93,7 +93,7 @@ export async function foo() {
           S: "val",
         },
       },
-    })
+    }),
   );
   query.Items?.[0].key;
 }
@@ -123,7 +123,7 @@ export async function updateItem() {
         },
       },
       ConditionExpression: "#k = :v2",
-    })
+    }),
   );
   // @ts-expect-error - default ReturnValues is None
   defaultBehavior.Attributes?.key;
@@ -141,7 +141,7 @@ export async function updateItem() {
       },
       UpdateExpression: "a = 1",
       ReturnValues: "NONE",
-    })
+    }),
   );
   // @ts-expect-error - nothing is Returned
   returnNone.Attributes?.key;
@@ -159,7 +159,7 @@ export async function updateItem() {
       },
       UpdateExpression: "a = 1",
       ReturnValues: "ALL_NEW",
-    })
+    }),
   );
   returnAllNew.Attributes?.key?.S;
 
@@ -176,7 +176,7 @@ export async function updateItem() {
       },
       UpdateExpression: "a = 1",
       ReturnValues: "ALL_OLD",
-    })
+    }),
   );
   returnAllOld.Attributes?.key?.S;
 
@@ -193,7 +193,7 @@ export async function updateItem() {
       },
       UpdateExpression: "a = 1",
       ReturnValues: "UPDATED_NEW",
-    })
+    }),
   );
   returnUpdatedNew.Attributes?.key?.S;
 
@@ -210,7 +210,7 @@ export async function updateItem() {
       },
       UpdateExpression: "a = 1",
       ReturnValues: "UPDATED_OLD",
-    })
+    }),
   );
   returnUpdatedOld.Attributes?.key?.S;
 }

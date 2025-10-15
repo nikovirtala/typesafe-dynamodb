@@ -32,7 +32,7 @@ export interface PropRef<Ex extends Expr = any, Id extends Identifier = any> {
 }
 export interface ArrayIndex<
   List extends Expr = any,
-  Number extends NumberLiteral | ValueRef = NumberLiteral | ValueRef
+  Number extends NumberLiteral | ValueRef = NumberLiteral | ValueRef,
 > {
   kind: "array-index";
   list: List;
@@ -43,7 +43,7 @@ export type Operator = "and" | "or" | "=" | "<" | "<=" | ">=" | ">";
 export interface OperatorExpr<
   Left extends Expr = any,
   Op extends Operator = Operator,
-  Right extends Expr = any
+  Right extends Expr = any,
 > {
   kind: "op";
   left: Left;

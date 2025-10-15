@@ -5,7 +5,7 @@ import type { JsonFormat } from "./json-format";
 export function TypeSafeDeleteItemCommand<
   Item extends object,
   PartitionKey extends keyof Item,
-  RangeKey extends keyof Item | undefined
+  RangeKey extends keyof Item | undefined,
 >(): DeleteCommand<Item, PartitionKey, RangeKey, JsonFormat.AttributeValue> {
   return _DeleteItemCommand as any;
 }

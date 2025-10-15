@@ -6,8 +6,8 @@ test("dummy", () => {
 
 import { DynamoDB } from "aws-sdk";
 
-import { ApplyProjection } from "../src/projection";
 import { TypeSafeDocumentClientV2 } from "../src/document-client-v2";
+import { ApplyProjection } from "../src/projection";
 
 export interface MyItem {
   pk: string;
@@ -157,7 +157,7 @@ interface User<UserID extends string = string> {
 
 interface Order<
   UserID extends string = string,
-  OrderID extends string = string
+  OrderID extends string = string,
 > {
   PK: `USER#${UserID}`;
   SK: `ORDER#${OrderID}`;

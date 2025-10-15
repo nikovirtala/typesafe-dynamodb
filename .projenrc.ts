@@ -15,12 +15,9 @@ const project = new typescript.TypeScriptProject({
     "@smithy/smithy-client",
     "@types/aws-lambda",
   ],
-  eslintOptions: {
-    dirs: [],
-    ignorePatterns: ["**"],
-  },
   gitignore: [".DS_Store", ".dccache"],
   releaseToNpm: true,
+  prettier: true,
 });
 
 project.synth();
