@@ -2,10 +2,10 @@ import { typescript } from "projen";
 
 const project = new typescript.TypeScriptProject({
   defaultReleaseBranch: "main",
-  name: "typesafe-dynamodb",
+  name: "@nikovirtala/typesafe-dynamodb",
   projenrcTs: true,
   typescriptVersion: "latest",
-  repository: "https://github.com/sam-goodwin/typesafe-dynamodb",
+  repository: "https://github.com/nikovirtala/typesafe-dynamodb",
   peerDeps: [
     "aws-sdk",
     "@aws-sdk/client-dynamodb",
