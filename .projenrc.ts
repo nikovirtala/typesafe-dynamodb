@@ -1,7 +1,9 @@
-const { typescript } = require('projen');
+import { typescript } from 'projen';
+
 const project = new typescript.TypeScriptProject({
   defaultReleaseBranch: 'main',
   name: 'typesafe-dynamodb',
+  projenrcTs: true,
   typescriptVersion: 'latest',
   repository: 'https://github.com/sam-goodwin/typesafe-dynamodb',
   peerDeps: [
@@ -14,6 +16,7 @@ const project = new typescript.TypeScriptProject({
     '@types/aws-lambda',
   ],
   eslintOptions: {
+    dirs: [],
     ignorePatterns: ['**'],
   },
   tsconfig: {
