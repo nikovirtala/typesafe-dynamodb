@@ -18,6 +18,7 @@ const project = new typescript.TypeScriptProject({
   gitignore: [".DS_Store", ".dccache"],
   releaseToNpm: true,
   prettier: true,
+  dependabot: false,
 });
 
 project.synth();
