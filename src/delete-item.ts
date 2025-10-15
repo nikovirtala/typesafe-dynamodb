@@ -1,10 +1,11 @@
 import type {
   DynamoDBClientResolvedConfig,
   ReturnValue as DynamoDBReturnValue,
+  DeleteItemInput as DynamoDBDeleteItemInput,
+  DeleteItemOutput as DynamoDBDeleteItemOutput,
 } from "@aws-sdk/client-dynamodb";
 import type { MetadataBearer } from "@aws-sdk/types";
 import type { Command } from "@smithy/smithy-client";
-import type { DynamoDB } from "aws-sdk";
 import type {
   ExpressionAttributeNames,
   ExpressionAttributeValues,
@@ -18,10 +19,10 @@ export type DeleteItemInput<
   RangeKey extends keyof Item | undefined,
   Key extends TableKey<Item, PartitionKey, RangeKey, Format>,
   ConditionExpression extends string | undefined,
-  ReturnValue extends DynamoDB.ReturnValue,
+  ReturnValue extends DynamoDBReturnValue,
   Format extends JsonFormat,
 > = Omit<
-  DynamoDB.DeleteItemInput,
+  DynamoDBDeleteItemInput,
   | "ConditionExpression"
   | "ExpressionAttributeNames"
   | "ExpressionAttributeValues"
@@ -38,9 +39,9 @@ export type DeleteItemInput<
 
 export interface DeleteItemOutput<
   Item extends object,
-  ReturnValue extends DynamoDB.ReturnValue,
+  ReturnValue extends DynamoDBReturnValue,
   Format extends JsonFormat,
-> extends Omit<DynamoDB.DeleteItemOutput, "Attributes"> {
+> extends Omit<DynamoDBDeleteItemOutput, "Attributes"> {
   Attributes?: "ALL_OLD" | "ALL_NEW" extends ReturnValue
     ? FormatObject<Item, Format>
     : undefined | "NONE" extends ReturnValue

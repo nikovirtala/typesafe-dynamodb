@@ -2,7 +2,7 @@
 
 [![npm version](https://badge.fury.io/js/typesafe-dynamodb.svg)](https://badge.fury.io/js/typesafe-dynamodb)
 
-`typesafe-dynamodb` is a type-only library which replaces the type signatures of the AWS SDK's DynamoDB client. It substitutes `getItem`, `putItem`, `deleteItem` and `query` API methods with type-safe alternatives that are aware of the data in your tables and also adaptive to the semantics of the API request, e.g. by validating `ExpressionAttributeNames` and `ExpressionAttributeValues` contain all the values used in a `ConditionExpression` string, or by understanding the effect of a `ProjectionExpression` on the returned data type.
+`typesafe-dynamodb` is a type-only library which replaces the type signatures of the AWS SDK v3's DynamoDB client. It substitutes `getItem`, `putItem`, `deleteItem` and `query` API methods with type-safe alternatives that are aware of the data in your tables and also adaptive to the semantics of the API request, e.g. by validating `ExpressionAttributeNames` and `ExpressionAttributeValues` contain all the values used in a `ConditionExpression` string, or by understanding the effect of a `ProjectionExpression` on the returned data type.
 
 The end goal is to provide types that have total understanding of the AWS DynamoDB API and enable full utilization of the TypeScript type system for modeling complex DynamoDB tables, such as the application of union types and template string literals for single-table designs.
 
@@ -16,17 +16,13 @@ npm install --save-dev typesafe-dynamodb
 
 ## Usage
 
-This library contains type definitions for both AWS SDK v2 (`aws-sdk`) and AWS SDK v3 (`@aws-sdk/client-dynamodb`);
+This library contains type definitions for AWS SDK v3 (`@aws-sdk/client-dynamodb`).
 
-### AWS SDK v2
+### AWS SDK v3
 
-To use `typesafe-dynamodb` with the AWS SDK v2, there is no need to change anything about your existing runtime code. It is purely type definitions, so you only need to cast an instance of `AWS.DynamoDB` to the `TypeSafeDynamoDBv2<T, HashKey, RangeKey>` interface and use the client as normal, except now you can enjoy a dynamic, type-safe experience in your IDE instead.
+#### Option 1 - DynamoDB
 
-```ts
-import { DynamoDB } from "aws-sdk";
-
-const client = new DynamoDB();
-```
+`DynamoDB` is a convenient way of using the DynamoDB API, except it is not optimized for tree-shaking (for that, see Option 2).
 
 Start by declaring a standard TypeScript interface which describes the structure of data in your DynamoDB Table:
 
@@ -40,25 +36,7 @@ interface Record {
 }
 ```
 
-Then, cast the `DynamoDB` client instance to `TypeSafeDynamoDB`;
-
-```ts
-import { TypeSafeDynamoDBv2 } from "typesafe-dynamodb/lib/client-v2";
-
-const typesafeClient: TypeSafeDynamoDBv2<Record, "key", "sort"> = client;
-```
-
-`"key"` is the name of the Hash Key attribute, and `"sort"` is the name of the Range Key attribute.
-
-Finally, use the client as you normally would, except now with intelligent type hints and validations.
-
-### AWS SDK v3
-
-#### Option 1 - DynamoDB (similar to SDK v2)
-
-`DynamoDB` is an almost identical implementation to the AWS SDK v2, except with minor changes such as returning a `Promise` by default. It is a convenient way of using the DynamoDB API, except it is not optimized for tree-shaking (for that, see Option 2).
-
-To override the types, follow a similar method to v2, except by importing TypeSafeDynamoDBv3 (instead of v2):
+Then, cast the `DynamoDB` client instance to `TypeSafeDynamoDBv3`:
 
 ```ts
 import { DynamoDB } from "@aws-sdk/client-dynamodb";
@@ -67,6 +45,10 @@ import { TypeSafeDynamoDBv3 } from "typesafe-dynamodb/lib/client-v3";
 const client = new DynamoDB({..});
 const typesafeClient: TypeSafeDynamoDBv3<Record, "key", "sort"> = client;
 ```
+
+`"key"` is the name of the Hash Key attribute, and `"sort"` is the name of the Range Key attribute.
+
+Finally, use the client as you normally would, except now with intelligent type hints and validations.
 
 #### Option 2 - DynamoDBClient (a Command-Response interface optimized for tree-shaking)
 
@@ -96,26 +78,7 @@ await client.send(
 
 ### Document Client
 
-Both the AWS SDK v2 and v3 provide a javascript-friendly interface called the `DocumentClient`. Instead of using the AttributeValue format, such as `{ S: "hello" }` or `{ N: "123" }`, the `DocumentClient` enables you to use native javascript types, e.g. `"hello"` or `123`.
-
-#### AWS SDK V2
-
-For the SDK V2 client, cast it to `TypeSafeDocumentClientV2`.
-
-See: https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/DynamoDB/DocumentClient.html
-
-```ts
-import { DynamoDB } from "aws-sdk";
-import { TypeSafeDocumentClientV2 } from "typesafe-dynamodb/lib/document-client-v2";
-
-const table = new DynamoDB.DocumentClient() as TypeSafeDocumentClientV2<
-  MyItem,
-  "pk",
-  "sk"
->;
-```
-
-#### AWS SDK V3
+The AWS SDK v3 provides a javascript-friendly interface called the `DocumentClient`. Instead of using the AttributeValue format, such as `{ S: "hello" }` or `{ N: "123" }`, the `DocumentClient` enables you to use native javascript types, e.g. `"hello"` or `123`.
 
 When defining your Command types, use the corresponding `TypeSafe*DocumentCommand` type, for example `TypeSafeGetDocumentCommand` instead of `TypeSafeGetItemCommand`:
 
@@ -135,7 +98,7 @@ import { TypeSafeGetDocumentCommand } from "typesafe-dynamodb/lib/get-document-c
 const MyGetItemCommand = TypeSafeGetDocumentCommand<MyType, "key", "sort">();
 ```
 
-For the SDK V3 client, cast it to `TypeSafeDynamoDBv3`.
+For the SDK V3 client, cast it to `TypeSafeDocumentClientV3`:
 
 ```ts
 import { DynamoDBClient } from "@aws-sdk/client-dynamodb";

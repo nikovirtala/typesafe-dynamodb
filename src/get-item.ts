@@ -1,4 +1,7 @@
-import type { DynamoDB } from "aws-sdk";
+import type {
+  GetItemInput as DynamoDBGetItemInput,
+  GetItemOutput as DynamoDBGetItemOutput,
+} from "@aws-sdk/client-dynamodb";
 import { JsonFormat, FormatObject } from "./json-format";
 import { TableKey } from "./key";
 import { Narrow } from "./narrow";
@@ -14,7 +17,7 @@ export interface GetItemInput<
   ProjectionExpression extends string | undefined,
   Format extends JsonFormat,
 > extends Omit<
-    DynamoDB.GetItemInput,
+    DynamoDBGetItemInput,
     "Key" | "AttributesToGet" | "ProjectionExpression"
   > {
   Key: Key;
@@ -30,7 +33,7 @@ export interface GetItemOutput<
   AttributesToGet extends keyof Item | undefined,
   ProjectionExpression extends string | undefined,
   Format extends JsonFormat = JsonFormat.AttributeValue,
-> extends Omit<DynamoDB.GetItemOutput, "Item"> {
+> extends Omit<DynamoDBGetItemOutput, "Item"> {
   Item?: Simplify<
     FormatObject<
       undefined extends AttributesToGet
