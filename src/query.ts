@@ -1,6 +1,6 @@
 import type { DynamoDBClientResolvedConfig } from "@aws-sdk/client-dynamodb";
-import type { Command } from "@smithy/smithy-client";
 import type { MetadataBearer } from "@aws-sdk/types";
+import type { Command } from "@smithy/smithy-client";
 import type { DynamoDB } from "aws-sdk";
 import type {
   ExpressionAttributeNames,
@@ -14,7 +14,7 @@ export type QueryInput<
   FilterExpression extends string | undefined,
   ProjectionExpression extends string | undefined,
   AttributesToGet extends keyof Item | undefined,
-  Format extends JsonFormat
+  Format extends JsonFormat,
 > = Omit<
   DynamoDB.QueryInput,
   | "AttributesToGet"
@@ -37,7 +37,7 @@ export type QueryInput<
 export interface QueryOutput<
   Item extends object,
   AttributesToGet extends keyof Item | undefined,
-  Format extends JsonFormat
+  Format extends JsonFormat,
 > extends Omit<DynamoDB.QueryOutput, "Items"> {
   Items?: FormatObject<
     undefined extends AttributesToGet
@@ -51,7 +51,7 @@ export type QueryCommand<Item extends object, Format extends JsonFormat> = new <
   const KeyConditionExpression extends string | undefined,
   const FilterExpression extends string | undefined,
   const ProjectionExpression extends string | undefined,
-  const AttributesToGet extends keyof Item | undefined
+  const AttributesToGet extends keyof Item | undefined,
 >(
   input: QueryInput<
     Item,
@@ -60,7 +60,7 @@ export type QueryCommand<Item extends object, Format extends JsonFormat> = new <
     ProjectionExpression,
     AttributesToGet,
     Format
-  >
+  >,
 ) => Command<
   QueryInput<
     Item,

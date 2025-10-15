@@ -167,7 +167,7 @@ interface User<UserID extends string = string> {
 
 interface Order<
   UserID extends string = string,
-  OrderID extends string = string
+  OrderID extends string = string,
 > {
   PK: `USER#${UserID}`;
   SK: `ORDER#${OrderID}`;

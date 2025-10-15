@@ -5,7 +5,7 @@ import { TypeSafeDocumentClientV2 } from "../src/document-client-v2";
 
 export interface Order<
   UserID extends string = string,
-  OrderID extends string = string
+  OrderID extends string = string,
 > {
   PK: `USER#${UserID}`;
   SK: `ORDER#${OrderID}`;
@@ -21,7 +21,7 @@ test("long UpdateExpression should compile", () => {
   const orderId = "orderId";
 
   () => {
-    client
+    void client
       .update({
         TableName: "",
         Key: {

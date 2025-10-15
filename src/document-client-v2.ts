@@ -1,8 +1,8 @@
 import type { AWSError, DynamoDB, Request } from "aws-sdk";
 import { Callback } from "./callback";
 import { DeleteItemInput, DeleteItemOutput } from "./delete-item";
-import { JsonFormat } from "./json-format";
 import { GetItemInput, GetItemOutput } from "./get-item";
+import { JsonFormat } from "./json-format";
 import { TableKey } from "./key";
 import { PutItemInput, PutItemOutput } from "./put-item";
 import { QueryInput, QueryOutput } from "./query";
@@ -12,7 +12,7 @@ import { UpdateItemInput, UpdateItemOutput } from "./update-item";
 export interface TypeSafeDocumentClientV2<
   Item extends object,
   PartitionKey extends keyof Item,
-  RangeKey extends keyof Item | undefined = undefined
+  RangeKey extends keyof Item | undefined = undefined,
 > extends Omit<
     DynamoDB.DocumentClient,
     "get" | "delete" | "put" | "query" | "scan" | "update"
@@ -20,7 +20,7 @@ export interface TypeSafeDocumentClientV2<
   get<
     Key extends TableKey<Item, PartitionKey, RangeKey, JsonFormat.Document>,
     AttributesToGet extends keyof Item | undefined = undefined,
-    ProjectionExpression extends string | undefined = undefined
+    ProjectionExpression extends string | undefined = undefined,
   >(
     params: GetItemInput<
       Item,
@@ -42,7 +42,7 @@ export interface TypeSafeDocumentClientV2<
         JsonFormat.Document
       >,
       AWSError
-    >
+    >,
   ): Request<
     GetItemOutput<
       Item,
@@ -59,7 +59,7 @@ export interface TypeSafeDocumentClientV2<
   delete<
     Key extends TableKey<Item, PartitionKey, RangeKey, JsonFormat.Document>,
     ConditionExpression extends string | undefined,
-    ReturnValue extends DynamoDB.ReturnValue = "NONE"
+    ReturnValue extends DynamoDB.ReturnValue = "NONE",
   >(
     params: DeleteItemInput<
       Item,
@@ -73,7 +73,7 @@ export interface TypeSafeDocumentClientV2<
     callback?: Callback<
       DeleteItemOutput<Item, ReturnValue, JsonFormat.Document>,
       AWSError
-    >
+    >,
   ): Request<
     DeleteItemOutput<Item, ReturnValue, JsonFormat.Document>,
     AWSError
@@ -81,7 +81,7 @@ export interface TypeSafeDocumentClientV2<
 
   put<
     ConditionExpression extends string | undefined,
-    ReturnValue extends DynamoDB.ReturnValue = "NONE"
+    ReturnValue extends DynamoDB.ReturnValue = "NONE",
   >(
     params: PutItemInput<
       Item,
@@ -92,14 +92,14 @@ export interface TypeSafeDocumentClientV2<
     callback?: Callback<
       PutItemOutput<Item, ReturnValue, JsonFormat.Document>,
       AWSError
-    >
+    >,
   ): Request<PutItemOutput<Item, ReturnValue, JsonFormat.Document>, AWSError>;
 
   update<
     Key extends TableKey<Item, PartitionKey, RangeKey, JsonFormat.Document>,
     UpdateExpression extends string,
     ConditionExpression extends string | undefined,
-    ReturnValue extends DynamoDB.ReturnValue = "NONE"
+    ReturnValue extends DynamoDB.ReturnValue = "NONE",
   >(
     params: UpdateItemInput<
       Item,
@@ -121,7 +121,7 @@ export interface TypeSafeDocumentClientV2<
         JsonFormat.Document
       >,
       AWSError
-    >
+    >,
   ): Request<
     UpdateItemOutput<
       Item,
@@ -138,7 +138,7 @@ export interface TypeSafeDocumentClientV2<
     KeyConditionExpression extends string | undefined = undefined,
     FilterExpression extends string | undefined = undefined,
     ProjectionExpression extends string | undefined = undefined,
-    AttributesToGet extends keyof Item | undefined = undefined
+    AttributesToGet extends keyof Item | undefined = undefined,
   >(
     params: QueryInput<
       Item,
@@ -151,13 +151,13 @@ export interface TypeSafeDocumentClientV2<
     callback?: Callback<
       QueryOutput<Item, AttributesToGet, JsonFormat.Document>,
       AWSError
-    >
+    >,
   ): Request<QueryOutput<Item, AttributesToGet, JsonFormat.Document>, AWSError>;
 
   scan<
     FilterExpression extends string | undefined = undefined,
     ProjectionExpression extends string | undefined = undefined,
-    AttributesToGet extends keyof Item | undefined = undefined
+    AttributesToGet extends keyof Item | undefined = undefined,
   >(
     params: ScanInput<
       Item,
@@ -169,6 +169,6 @@ export interface TypeSafeDocumentClientV2<
     callback?: Callback<
       ScanOutput<Item, AttributesToGet, JsonFormat.Document>,
       AWSError
-    >
+    >,
   ): Request<ScanOutput<Item, AttributesToGet, JsonFormat.Document>, AWSError>;
 }

@@ -1,8 +1,8 @@
 import type { AWSError, DynamoDB, Request } from "aws-sdk";
 import { Callback } from "./callback";
 import { DeleteItemInput, DeleteItemOutput } from "./delete-item";
-import { JsonFormat } from "./json-format";
 import { GetItemInput, GetItemOutput } from "./get-item";
+import { JsonFormat } from "./json-format";
 import { TableKey } from "./key";
 import { PutItemInput, PutItemOutput } from "./put-item";
 import { QueryInput, QueryOutput } from "./query";
@@ -12,7 +12,7 @@ import { UpdateItemInput, UpdateItemOutput } from "./update-item";
 export interface TypeSafeDynamoDBv2<
   Item extends object,
   PartitionKey extends keyof Item,
-  RangeKey extends keyof Item | undefined = undefined
+  RangeKey extends keyof Item | undefined = undefined,
 > extends Omit<
     DynamoDB,
     "getItem" | "deleteItem" | "putItem" | "query" | "scan" | "updateItem"
@@ -25,7 +25,7 @@ export interface TypeSafeDynamoDBv2<
       JsonFormat.AttributeValue
     >,
     AttributesToGet extends keyof Item | undefined = undefined,
-    ProjectionExpression extends string | undefined = undefined
+    ProjectionExpression extends string | undefined = undefined,
   >(
     params: GetItemInput<
       Item,
@@ -47,7 +47,7 @@ export interface TypeSafeDynamoDBv2<
         JsonFormat.AttributeValue
       >,
       AWSError
-    >
+    >,
   ): Request<
     GetItemOutput<
       Item,
@@ -69,7 +69,7 @@ export interface TypeSafeDynamoDBv2<
       JsonFormat.AttributeValue
     >,
     ConditionExpression extends string | undefined,
-    ReturnValue extends DynamoDB.ReturnValue = "NONE"
+    ReturnValue extends DynamoDB.ReturnValue = "NONE",
   >(
     params: DeleteItemInput<
       Item,
@@ -83,7 +83,7 @@ export interface TypeSafeDynamoDBv2<
     callback?: Callback<
       DeleteItemOutput<Item, ReturnValue, JsonFormat.AttributeValue>,
       AWSError
-    >
+    >,
   ): Request<
     DeleteItemOutput<Item, ReturnValue, JsonFormat.AttributeValue>,
     AWSError
@@ -91,7 +91,7 @@ export interface TypeSafeDynamoDBv2<
 
   putItem<
     ConditionExpression extends string | undefined,
-    ReturnValue extends DynamoDB.ReturnValue = "NONE"
+    ReturnValue extends DynamoDB.ReturnValue = "NONE",
   >(
     params: PutItemInput<
       Item,
@@ -102,7 +102,7 @@ export interface TypeSafeDynamoDBv2<
     callback?: Callback<
       PutItemOutput<Item, ReturnValue, JsonFormat.AttributeValue>,
       AWSError
-    >
+    >,
   ): Request<
     PutItemOutput<Item, ReturnValue, JsonFormat.AttributeValue>,
     AWSError
@@ -117,7 +117,7 @@ export interface TypeSafeDynamoDBv2<
     >,
     UpdateExpression extends string,
     ConditionExpression extends string | undefined,
-    ReturnValue extends DynamoDB.ReturnValue = "NONE"
+    ReturnValue extends DynamoDB.ReturnValue = "NONE",
   >(
     params: UpdateItemInput<
       Item,
@@ -139,7 +139,7 @@ export interface TypeSafeDynamoDBv2<
         JsonFormat.AttributeValue
       >,
       AWSError
-    >
+    >,
   ): Request<
     UpdateItemOutput<
       Item,
@@ -156,7 +156,7 @@ export interface TypeSafeDynamoDBv2<
     KeyConditionExpression extends string | undefined = undefined,
     FilterExpression extends string | undefined = undefined,
     ProjectionExpression extends string | undefined = undefined,
-    AttributesToGet extends keyof Item | undefined = undefined
+    AttributesToGet extends keyof Item | undefined = undefined,
   >(
     params: QueryInput<
       Item,
@@ -169,7 +169,7 @@ export interface TypeSafeDynamoDBv2<
     callback?: Callback<
       QueryOutput<Item, AttributesToGet, JsonFormat.AttributeValue>,
       AWSError
-    >
+    >,
   ): Request<
     QueryOutput<Item, AttributesToGet, JsonFormat.AttributeValue>,
     AWSError
@@ -178,7 +178,7 @@ export interface TypeSafeDynamoDBv2<
   scan<
     FilterExpression extends string | undefined = undefined,
     ProjectionExpression extends string | undefined = undefined,
-    AttributesToGet extends keyof Item | undefined = undefined
+    AttributesToGet extends keyof Item | undefined = undefined,
   >(
     params: ScanInput<
       Item,
@@ -190,7 +190,7 @@ export interface TypeSafeDynamoDBv2<
     callback?: Callback<
       ScanOutput<Item, AttributesToGet, JsonFormat.AttributeValue>,
       AWSError
-    >
+    >,
   ): Request<
     ScanOutput<Item, AttributesToGet, JsonFormat.AttributeValue>,
     AWSError

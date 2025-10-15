@@ -12,7 +12,7 @@ export interface GetItemInput<
   Key extends TableKey<Item, PartitionKey, RangeKey, Format>,
   AttributesToGet extends keyof Item | undefined,
   ProjectionExpression extends string | undefined,
-  Format extends JsonFormat
+  Format extends JsonFormat,
 > extends Omit<
     DynamoDB.GetItemInput,
     "Key" | "AttributesToGet" | "ProjectionExpression"
@@ -29,7 +29,7 @@ export interface GetItemOutput<
   Key extends TableKey<Item, PartitionKey, RangeKey, Format>,
   AttributesToGet extends keyof Item | undefined,
   ProjectionExpression extends string | undefined,
-  Format extends JsonFormat = JsonFormat.AttributeValue
+  Format extends JsonFormat = JsonFormat.AttributeValue,
 > extends Omit<DynamoDB.GetItemOutput, "Item"> {
   Item?: Simplify<
     FormatObject<

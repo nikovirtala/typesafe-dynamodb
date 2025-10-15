@@ -1,3 +1,9 @@
+import type {
+  DynamoDBClientResolvedConfig,
+  ReturnValue as DynamoDBReturnValue,
+} from "@aws-sdk/client-dynamodb";
+import type { MetadataBearer } from "@aws-sdk/types";
+import type { Command } from "@smithy/smithy-client";
 import type { DynamoDB } from "aws-sdk";
 import type {
   ExpressionAttributeNames,
@@ -6,12 +12,6 @@ import type {
 import type { FormatObject, JsonFormat } from "./json-format";
 import type { TableKey } from "./key";
 import type { Narrow } from "./narrow";
-import type {
-  DynamoDBClientResolvedConfig,
-  ReturnValue as DynamoDBReturnValue,
-} from "@aws-sdk/client-dynamodb";
-import type { MetadataBearer } from "@aws-sdk/types";
-import type { Command } from "@smithy/smithy-client";
 
 export type UpdateItemInput<
   Item extends object,
@@ -21,7 +21,7 @@ export type UpdateItemInput<
   UpdateExpression extends string,
   ConditionExpression extends string | undefined,
   ReturnValue extends DynamoDB.ReturnValue,
-  Format extends JsonFormat
+  Format extends JsonFormat,
 > = Omit<
   DynamoDB.UpdateItemInput,
   | "ConditionExpression"
@@ -47,20 +47,28 @@ export interface UpdateItemOutput<
   RangeKey extends keyof Item | undefined,
   Key extends TableKey<Item, PartitionKey, RangeKey, Format>,
   ReturnValue extends DynamoDB.ReturnValue,
-  Format extends JsonFormat
+  Format extends JsonFormat,
 > extends Omit<DynamoDB.UpdateItemOutput, "Attributes"> {
   Attributes?: FormatObject<
     ReturnValue extends undefined | "NONE"
       ? undefined
       : ReturnValue extends "ALL_OLD" | "ALL_NEW"
-      ? Narrow<Item, Extract<Key, TableKey<Item, any, any, Format>>, Format>
-      : ReturnValue extends "UPDATED_OLD" | "UPDATED_NEW"
-      ? Partial<
-          Narrow<Item, Extract<Key, TableKey<Item, any, any, Format>>, Format>
-        >
-      : Partial<
-          Narrow<Item, Extract<Key, TableKey<Item, any, any, Format>>, Format>
-        >,
+        ? Narrow<Item, Extract<Key, TableKey<Item, any, any, Format>>, Format>
+        : ReturnValue extends "UPDATED_OLD" | "UPDATED_NEW"
+          ? Partial<
+              Narrow<
+                Item,
+                Extract<Key, TableKey<Item, any, any, Format>>,
+                Format
+              >
+            >
+          : Partial<
+              Narrow<
+                Item,
+                Extract<Key, TableKey<Item, any, any, Format>>,
+                Format
+              >
+            >,
     Format
   >;
 }
@@ -69,12 +77,12 @@ export type UpdateCommand<
   Item extends object,
   PartitionKey extends keyof Item,
   RangeKey extends keyof Item | undefined,
-  Format extends JsonFormat
+  Format extends JsonFormat,
 > = new <
   Key extends TableKey<Item, PartitionKey, RangeKey, Format>,
   const UpdateExpression extends string,
   const ConditionExpression extends string | undefined = undefined,
-  const ReturnValue extends DynamoDBReturnValue = "NONE"
+  const ReturnValue extends DynamoDBReturnValue = "NONE",
 >(
   input: UpdateItemInput<
     Item,
@@ -85,7 +93,7 @@ export type UpdateCommand<
     ConditionExpression,
     ReturnValue,
     Format
-  >
+  >,
 ) => Command<
   UpdateItemInput<
     Item,

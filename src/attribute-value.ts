@@ -47,33 +47,35 @@ export type ToAttributeMap<T extends object> = ToAttributeValue<T>["M"];
 export type ToAttributeValue<T> = T extends undefined
   ? undefined
   : T extends null
-  ? NULL
-  : T extends boolean
-  ? BOOL<T>
-  : T extends string
-  ? S<T>
-  : T extends number
-  ? N<T>
-  : // this behavior is not defined by https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/DynamoDB/DocumentClient.html
-  // should it be a number of string?
-  T extends Date
-  ? N<number>
-  : T extends NativeBinaryAttribute
-  ? B
-  : T extends ArrayLike<unknown>
-  ? L<{
-      [i in keyof T]: i extends "length" ? T[i] : ToAttributeValue<T[i]>;
-    }>
-  : M<{
-      [prop in keyof T]: ToAttributeValue<T[prop]>;
-    }>;
+    ? NULL
+    : T extends boolean
+      ? BOOL<T>
+      : T extends string
+        ? S<T>
+        : T extends number
+          ? N<T>
+          : // this behavior is not defined by https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/DynamoDB/DocumentClient.html
+            // should it be a number of string?
+            T extends Date
+            ? N<number>
+            : T extends NativeBinaryAttribute
+              ? B
+              : T extends ArrayLike<unknown>
+                ? L<{
+                    [i in keyof T]: i extends "length"
+                      ? T[i]
+                      : ToAttributeValue<T[i]>;
+                  }>
+                : M<{
+                    [prop in keyof T]: ToAttributeValue<T[prop]>;
+                  }>;
 
 export function isS(a: any): a is S {
   return a !== undefined && "S" in a;
 }
 
-export interface S<S extends string = string> {
-  S: S;
+export interface S<T extends string = string> {
+  S: T;
 }
 
 export function isB(a: any): a is B {
@@ -88,8 +90,8 @@ export function isBOOL(a: any): a is BOOL {
   return a !== undefined && "BOOL" in a;
 }
 
-export interface BOOL<B = boolean> {
-  BOOL: B;
+export interface BOOL<T = boolean> {
+  BOOL: T;
 }
 
 export function isM(a: any): a is M {
@@ -97,17 +99,17 @@ export function isM(a: any): a is M {
 }
 
 export interface M<
-  M extends Record<string, AttributeValue> = Record<string, AttributeValue>
+  T extends Record<string, AttributeValue> = Record<string, AttributeValue>,
 > {
-  M: M;
+  M: T;
 }
 
 export function isN(a: any): a is N {
   return a !== undefined && "N" in a;
 }
 
-export interface N<N extends number = number> {
-  N: `${N}`;
+export interface N<T extends number = number> {
+  N: `${T}`;
 }
 
 export function isNULL(a: any): a is NULL {
@@ -123,7 +125,7 @@ export function isL(a: any): a is L {
 }
 
 export interface L<
-  L extends ArrayLike<AttributeValue> = ArrayLike<AttributeValue>
+  T extends ArrayLike<AttributeValue> = ArrayLike<AttributeValue>,
 > {
-  L: L;
+  L: T;
 }
