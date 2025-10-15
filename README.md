@@ -1,17 +1,19 @@
-# typesafe-dynamodb
+# @nikovirtala/typesafe-dynamodb
 
-[![npm version](https://badge.fury.io/js/typesafe-dynamodb.svg)](https://badge.fury.io/js/typesafe-dynamodb)
+[![npm version](https://badge.fury.io/js/@nikovirtala%2Ftypesafe-dynamodb.svg)](https://badge.fury.io/js/@nikovirtala%2Ftypesafe-dynamodb)
 
-`typesafe-dynamodb` is a type-only library which replaces the type signatures of the AWS SDK v3's DynamoDB client. It substitutes `getItem`, `putItem`, `deleteItem` and `query` API methods with type-safe alternatives that are aware of the data in your tables and also adaptive to the semantics of the API request, e.g. by validating `ExpressionAttributeNames` and `ExpressionAttributeValues` contain all the values used in a `ConditionExpression` string, or by understanding the effect of a `ProjectionExpression` on the returned data type.
+`@nikovirtala/typesafe-dynamodb` is a fork of `typesafe-dynamodb` (a type-only library which replaces the type signatures of the AWS SDK v3's DynamoDB client) with schema validation based on [zod](https://zod.dev).
 
-The end goal is to provide types that have total understanding of the AWS DynamoDB API and enable full utilization of the TypeScript type system for modeling complex DynamoDB tables, such as the application of union types and template string literals for single-table designs.
+It substitutes `getItem`, `putItem`, `deleteItem` and `query` API methods with type-safe and schema validated alternatives that are aware of the data in your tables and also adaptive to the semantics of the API request, e.g. by validating `ExpressionAttributeNames` and `ExpressionAttributeValues` contain all the values used in a `ConditionExpression` string, or by understanding the effect of a `ProjectionExpression` on the returned data type.
+
+The end goal is to provide types and validation that have total understanding of the AWS DynamoDB API and enable full utilization of the TypeScript type system for modeling complex DynamoDB Tables, such as the application of union types and template string literals for single-table designs without forgetting runtime safety.
 
 ![typesafe putItem ConditionExpression](img/put-item-expression.gif)
 
 ## Installation
 
 ```
-npm install --save-dev typesafe-dynamodb
+npm install --save-dev @nikovirtala/typesafe-dynamodb
 ```
 
 ## Usage
@@ -108,7 +110,7 @@ import { TypeSafeDocumentClientV3 } from "typesafe-dynamodb/lib/document-client-
 const client = new DynamoDBClient({});
 
 const docClient = DynamoDBDocumentClient.from(
-  client
+  client,
 ) as TypeSafeDocumentClientV3<MyType, "key", "sort">;
 ```
 
@@ -134,7 +136,7 @@ Same for the `Item` in the response:
 
 ### Single Table Design
 
-Below are two `interface` declarations, representing two types of data stored in a single DynamoDB table - `User` and `Order`. Single table design in DynamoDB is achieved by creating "composite keys", e.g. `USER#${UserID}`. In TypeScript, we use template literal types to encode this in the Type System.
+Below are two `interface` declarations, representing two types of data stored in a single DynamoDB Table - `User` and `Order`. Single table design in DynamoDB is achieved by creating "composite keys", e.g. `USER#${UserID}`. In TypeScript, we use template literal types to encode this in the Type System.
 
 ```ts
 interface User<UserID extends string = string> {
@@ -149,7 +151,7 @@ interface User<UserID extends string = string> {
 
 interface Order<
   UserID extends string = string,
-  OrderID extends string = string
+  OrderID extends string = string,
 > {
   PK: `USER#${UserID}`;
   SK: `ORDER#${OrderID}`;
@@ -186,6 +188,41 @@ export async function handle(
 ```
 
 The event's type is derived from the data type and the the `StreamViewType`, e.g. `"NEW_IMAGE" | "OLD_IMAGE" | "KEYS_ONLY" | "NEW_AND_OLD_IMAGES"`.
+
+### Schema-Validated DynamoDBStreamEvent
+
+Validate DynamoDB stream events at runtime using Zod schemas:
+
+```ts
+import { z } from "zod";
+import { validateStreamEvent } from "typesafe-dynamodb";
+import type { DynamoDBStreamEvent } from "typesafe-dynamodb/lib/stream-event";
+
+const UserSchema = z.object({
+  PK: z.string(),
+  SK: z.string(),
+  name: z.string(),
+  email: z.string().email(),
+});
+
+type User = z.infer<typeof UserSchema>;
+
+export async function handle(
+  event: DynamoDBStreamEvent<User, "PK", "SK", "NEW_AND_OLD_IMAGES">,
+) {
+  try {
+    const validatedEvent = validateStreamEvent(event, UserSchema);
+    // Process validated stream records
+  } catch (error) {
+    if (error instanceof z.ZodError) {
+      console.error("Schema validation failed:", error.issues);
+    }
+    throw error;
+  }
+}
+```
+
+The `validateStreamEvent` function validates both `NewImage` and `OldImage` data against your Zod schema, ensuring runtime type safety for your stream processing logic.
 
 ### Filter result with ProjectionExpression
 
