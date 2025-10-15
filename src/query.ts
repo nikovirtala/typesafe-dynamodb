@@ -1,7 +1,10 @@
-import type { DynamoDBClientResolvedConfig } from "@aws-sdk/client-dynamodb";
+import type {
+  DynamoDBClientResolvedConfig,
+  QueryInput as DynamoDBQueryInput,
+  QueryOutput as DynamoDBQueryOutput,
+} from "@aws-sdk/client-dynamodb";
 import type { MetadataBearer } from "@aws-sdk/types";
 import type { Command } from "@smithy/smithy-client";
-import type { DynamoDB } from "aws-sdk";
 import type {
   ExpressionAttributeNames,
   ExpressionAttributeValues,
@@ -16,7 +19,7 @@ export type QueryInput<
   AttributesToGet extends keyof Item | undefined,
   Format extends JsonFormat,
 > = Omit<
-  DynamoDB.QueryInput,
+  DynamoDBQueryInput,
   | "AttributesToGet"
   | "KeyConditionExpression"
   | "FilterExpression"
@@ -38,7 +41,7 @@ export interface QueryOutput<
   Item extends object,
   AttributesToGet extends keyof Item | undefined,
   Format extends JsonFormat,
-> extends Omit<DynamoDB.QueryOutput, "Items"> {
+> extends Omit<DynamoDBQueryOutput, "Items"> {
   Items?: FormatObject<
     undefined extends AttributesToGet
       ? Item

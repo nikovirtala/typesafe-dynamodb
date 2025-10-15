@@ -1,10 +1,11 @@
 import type {
   DynamoDBClientResolvedConfig,
   ScanCommand as _ScanCommand,
+  ScanInput as DynamoDBScanInput,
+  ScanOutput as DynamoDBScanOutput,
 } from "@aws-sdk/client-dynamodb";
 import type { MetadataBearer } from "@aws-sdk/types";
 import type { Command } from "@smithy/smithy-client";
-import type { DynamoDB } from "aws-sdk";
 import type {
   ExpressionAttributeNames,
   ExpressionAttributeValues,
@@ -18,7 +19,7 @@ export type ScanInput<
   AttributesToGet extends keyof Item | undefined,
   Format extends JsonFormat,
 > = Omit<
-  DynamoDB.ScanInput,
+  DynamoDBScanInput,
   | "AttributesToGet"
   | "FilterExpression"
   | "ExpressionAttributeNames"
@@ -35,7 +36,7 @@ export interface ScanOutput<
   Item extends object,
   AttributesToGet extends keyof Item | undefined,
   Format extends JsonFormat,
-> extends Omit<DynamoDB.ScanOutput, "Items"> {
+> extends Omit<DynamoDBScanOutput, "Items"> {
   Items?: FormatObject<
     undefined extends AttributesToGet
       ? Item

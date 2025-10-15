@@ -1,8 +1,6 @@
 import type { ReturnValue as DynamoDBReturnValue } from "@aws-sdk/client-dynamodb";
 import { DynamoDBDocument } from "@aws-sdk/lib-dynamodb";
 import { MetadataBearer } from "@aws-sdk/types";
-import { ProjectionExpression } from "aws-sdk/clients/dynamodb";
-import { Callback } from "./callback";
 import { DeleteItemInput, DeleteItemOutput } from "./delete-item";
 import { GetItemInput, GetItemOutput } from "./get-item";
 import { JsonFormat } from "./json-format";
@@ -47,34 +45,6 @@ export interface TypeSafeDocumentClientV3<
       MetadataBearer
   >;
 
-  get<
-    Key extends TableKey<Item, PartitionKey, RangeKey, JsonFormat.Document>,
-    AttributesToGet extends keyof Item | undefined = undefined,
-    ProjectionExpression extends string | undefined = undefined,
-  >(
-    params: GetItemInput<
-      Item,
-      PartitionKey,
-      RangeKey,
-      Key,
-      AttributesToGet,
-      ProjectionExpression,
-      JsonFormat.Document
-    >,
-    callback: Callback<
-      GetItemOutput<
-        Item,
-        PartitionKey,
-        RangeKey,
-        Key,
-        AttributesToGet,
-        ProjectionExpression,
-        JsonFormat.Document
-      >,
-      any
-    >,
-  ): void;
-
   delete<
     Key extends TableKey<Item, PartitionKey, RangeKey, JsonFormat.Document>,
     ConditionExpression extends string | undefined,
@@ -93,26 +63,6 @@ export interface TypeSafeDocumentClientV3<
     DeleteItemOutput<Item, ReturnValue, JsonFormat.Document> & MetadataBearer
   >;
 
-  delete<
-    Key extends TableKey<Item, PartitionKey, RangeKey, JsonFormat.Document>,
-    ConditionExpression extends string | undefined,
-    ReturnValue extends DynamoDBReturnValue = "NONE",
-  >(
-    params: DeleteItemInput<
-      Item,
-      PartitionKey,
-      RangeKey,
-      Key,
-      ConditionExpression,
-      ReturnValue,
-      JsonFormat.Document
-    >,
-    callback: Callback<
-      DeleteItemOutput<Item, ReturnValue, JsonFormat.Document> & MetadataBearer,
-      any
-    >,
-  ): void;
-
   put<
     ConditionExpression extends string | undefined,
     ReturnValue extends DynamoDBReturnValue = "NONE",
@@ -126,22 +76,6 @@ export interface TypeSafeDocumentClientV3<
   ): Promise<
     PutItemOutput<Item, ReturnValue, JsonFormat.Document> & MetadataBearer
   >;
-
-  put<
-    ConditionExpression extends string | undefined,
-    ReturnValue extends DynamoDBReturnValue = "NONE",
-  >(
-    params: PutItemInput<
-      Item,
-      ConditionExpression,
-      ReturnValue,
-      JsonFormat.Document
-    >,
-    callback: Callback<
-      PutItemOutput<Item, ReturnValue, JsonFormat.Document> & MetadataBearer,
-      any
-    >,
-  ): void;
 
   update<
     Key extends TableKey<Item, PartitionKey, RangeKey, JsonFormat.Document>,
@@ -187,19 +121,17 @@ export interface TypeSafeDocumentClientV3<
       ReturnValue,
       JsonFormat.Document
     >,
-    callback?: Callback<
-      UpdateItemOutput<
-        Item,
-        PartitionKey,
-        RangeKey,
-        Key,
-        ReturnValue,
-        JsonFormat.Document
-      > &
-        MetadataBearer,
-      any
-    >,
-  ): void;
+  ): Promise<
+    UpdateItemOutput<
+      Item,
+      PartitionKey,
+      RangeKey,
+      Key,
+      ReturnValue,
+      JsonFormat.Document
+    > &
+      MetadataBearer
+  >;
 
   query<
     KeyConditionExpression extends string | undefined = undefined,
@@ -218,25 +150,6 @@ export interface TypeSafeDocumentClientV3<
   ): Promise<
     QueryOutput<Item, AttributesToGet, JsonFormat.Document> & MetadataBearer
   >;
-
-  query<
-    KeyConditionExpression extends string | undefined = undefined,
-    FilterExpression extends string | undefined = undefined,
-    AttributesToGet extends keyof Item | undefined = undefined,
-  >(
-    params: QueryInput<
-      Item,
-      KeyConditionExpression,
-      FilterExpression,
-      ProjectionExpression,
-      AttributesToGet,
-      JsonFormat.Document
-    >,
-    callback: Callback<
-      QueryOutput<Item, AttributesToGet, JsonFormat.Document> & MetadataBearer,
-      any
-    >,
-  ): void;
 
   scan<
     FilterExpression extends string | undefined = undefined,
@@ -264,9 +177,7 @@ export interface TypeSafeDocumentClientV3<
       AttributesToGet,
       JsonFormat.Document
     >,
-    callback?: Callback<
-      ScanOutput<Item, AttributesToGet, JsonFormat.Document> & MetadataBearer,
-      any
-    >,
-  ): void;
+  ): Promise<
+    ScanOutput<Item, AttributesToGet, JsonFormat.Document> & MetadataBearer
+  >;
 }

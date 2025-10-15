@@ -1,10 +1,11 @@
 import type {
   DynamoDBClientResolvedConfig,
   ReturnValue as DynamoDBReturnValue,
+  PutItemInput as DynamoDBPutItemInput,
+  PutItemOutput as DynamoDBPutItemOutput,
 } from "@aws-sdk/client-dynamodb";
 import type { MetadataBearer } from "@aws-sdk/types";
 import type { Command } from "@smithy/smithy-client";
-import type { DynamoDB } from "aws-sdk";
 import type {
   ExpressionAttributeNames,
   ExpressionAttributeValues,
@@ -14,10 +15,10 @@ import type { FormatObject, JsonFormat } from "./json-format";
 export type PutItemInput<
   Item extends object,
   ConditionExpression extends string | undefined,
-  ReturnValue extends DynamoDB.ReturnValue,
+  ReturnValue extends DynamoDBReturnValue,
   Format extends JsonFormat,
 > = Omit<
-  DynamoDB.PutItemInput,
+  DynamoDBPutItemInput,
   | "ConditionExpression"
   | "ExpressionAttributeNames"
   | "ExpressionAttributeValues"
@@ -33,9 +34,9 @@ export type PutItemInput<
 
 export interface PutItemOutput<
   Item extends object,
-  ReturnValue extends DynamoDB.ReturnValue,
+  ReturnValue extends DynamoDBReturnValue,
   Format extends JsonFormat,
-> extends Omit<DynamoDB.PutItemOutput, "Attributes"> {
+> extends Omit<DynamoDBPutItemOutput, "Attributes"> {
   Attributes?: "ALL_OLD" | "ALL_NEW" extends ReturnValue
     ? FormatObject<Item, Format>
     : undefined | "NONE" extends ReturnValue

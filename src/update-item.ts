@@ -1,10 +1,11 @@
 import type {
   DynamoDBClientResolvedConfig,
   ReturnValue as DynamoDBReturnValue,
+  UpdateItemInput as DynamoDBUpdateItemInput,
+  UpdateItemOutput as DynamoDBUpdateItemOutput,
 } from "@aws-sdk/client-dynamodb";
 import type { MetadataBearer } from "@aws-sdk/types";
 import type { Command } from "@smithy/smithy-client";
-import type { DynamoDB } from "aws-sdk";
 import type {
   ExpressionAttributeNames,
   ExpressionAttributeValues,
@@ -20,10 +21,10 @@ export type UpdateItemInput<
   Key extends TableKey<Item, PartitionKey, RangeKey, Format>,
   UpdateExpression extends string,
   ConditionExpression extends string | undefined,
-  ReturnValue extends DynamoDB.ReturnValue,
+  ReturnValue extends DynamoDBReturnValue,
   Format extends JsonFormat,
 > = Omit<
-  DynamoDB.UpdateItemInput,
+  DynamoDBUpdateItemInput,
   | "ConditionExpression"
   | "UpdateExpression"
   | "ExpressionAttributeNames"
@@ -46,9 +47,9 @@ export interface UpdateItemOutput<
   PartitionKey extends keyof Item,
   RangeKey extends keyof Item | undefined,
   Key extends TableKey<Item, PartitionKey, RangeKey, Format>,
-  ReturnValue extends DynamoDB.ReturnValue,
+  ReturnValue extends DynamoDBReturnValue,
   Format extends JsonFormat,
-> extends Omit<DynamoDB.UpdateItemOutput, "Attributes"> {
+> extends Omit<DynamoDBUpdateItemOutput, "Attributes"> {
   Attributes?: FormatObject<
     ReturnValue extends undefined | "NONE"
       ? undefined
