@@ -1,4 +1,4 @@
-import { typescript } from "projen";
+import { javascript, typescript } from "projen";
 
 const project = new typescript.TypeScriptProject({
   defaultReleaseBranch: "main",
@@ -19,6 +19,18 @@ const project = new typescript.TypeScriptProject({
   releaseToNpm: true,
   prettier: true,
   dependabot: false,
+  depsUpgradeOptions: {
+    workflowOptions: {
+      labels: ["auto-approve", "auto-merge"],
+    },
+  },
+  autoApproveOptions: {
+    secret: "GITHUB_TOKEN",
+    allowedUsernames: ["nikovirtala"],
+  },
+  mergify: true,
+  autoMerge: true,
+  npmAccess: javascript.NpmAccess.PUBLIC,
 });
 
 project.synth();
