@@ -1,5 +1,5 @@
-import { B, N, S } from "./attribute-value";
-import { JsonFormat, FormatObject } from "./json-format";
+import { B, N, S } from "./attribute-value.js";
+import { JsonFormat, FormatObject } from "./json-format.js";
 
 export type TableKey<
   Item extends object,

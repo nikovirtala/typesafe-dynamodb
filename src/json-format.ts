@@ -1,4 +1,4 @@
-import { ToAttributeMap } from "./attribute-value";
+import { ToAttributeMap } from "./attribute-value.js";
 
 export enum JsonFormat {
   AttributeValue = "AttributeValue",

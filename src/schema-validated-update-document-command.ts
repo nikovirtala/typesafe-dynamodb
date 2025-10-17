@@ -1,7 +1,7 @@
 import { UpdateCommand as _UpdateCommand } from "@aws-sdk/lib-dynamodb";
 import { z } from "zod";
-import type { JsonFormat } from "./json-format";
-import type { UpdateCommand } from "./update-item";
+import type { JsonFormat } from "./json-format.js";
+import type { UpdateCommand } from "./update-item.js";
 
 export function SchemaValidatedUpdateDocumentCommand<
   Item extends object,

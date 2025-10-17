@@ -1,8 +1,7 @@
-import "jest";
-
 import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
 import { DynamoDBDocumentClient } from "@aws-sdk/lib-dynamodb";
-import { TypeSafeDocumentClientV3 } from "../src/document-client-v3";
+import { it } from "vitest";
+import { TypeSafeDocumentClientV3 } from "../src/document-client-v3.js";
 
 export interface Order<
   UserID extends string = string,
@@ -14,7 +13,7 @@ export interface Order<
   orderId: string;
 }
 
-test("long UpdateExpression should compile", () => {
+it("should compile long UpdateExpression", () => {
   const dynamoClient = new DynamoDBClient({});
   const client: TypeSafeDocumentClientV3<Order, "PK", "SK"> =
     DynamoDBDocumentClient.from(dynamoClient) as any;
@@ -29,7 +28,7 @@ test("long UpdateExpression should compile", () => {
         PK: `USER#${userId}`,
         SK: `ORDER#${orderId}`,
       },
-      UpdateExpression: `SET MyMapName.myLongFieldNameA = :myLongFieldValueA, 
+      UpdateExpression: `SET MyMapName.myLongFieldNameA = :myLongFieldValueA,
                              MyMapName.myLongFieldNameB = :myLongFieldValueB,
                              MyMapName.myLongFieldNameC = :myLongFieldValueC,
                              MyMapName.myLongFieldNameD = :myLongFieldValueD,

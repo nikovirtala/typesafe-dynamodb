@@ -1,11 +1,12 @@
 {
   "dependencies": [
     {
-      "name": "@types/jest",
+      "name": "@nikovirtala/projen-vitest",
       "type": "build"
     },
     {
       "name": "@types/node",
+      "version": "^22",
       "type": "build"
     },
     {
@@ -50,15 +51,6 @@
       "type": "build"
     },
     {
-      "name": "jest",
-      "type": "build"
-    },
-    {
-      "name": "jest-junit",
-      "version": "^16",
-      "type": "build"
-    },
-    {
       "name": "prettier",
       "type": "build"
     },
@@ -67,17 +59,23 @@
       "type": "build"
     },
     {
-      "name": "ts-jest",
-      "type": "build"
-    },
-    {
-      "name": "ts-node",
+      "name": "tsx",
       "type": "build"
     },
     {
       "name": "typescript",
       "version": "latest",
       "type": "build"
+    },
+    {
+      "name": "vitest",
+      "version": "^3",
+      "type": "build"
+    },
+    {
+      "name": "@vitest/coverage-v8",
+      "version": "^3",
+      "type": "devenv"
     },
     {
       "name": "@aws-sdk/client-dynamodb",

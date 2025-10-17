@@ -1,6 +1,6 @@
 import { UpdateItemCommand as _UpdateItemCommand } from "@aws-sdk/client-dynamodb";
-import { JsonFormat } from "./json-format";
-import { UpdateCommand } from "./update-item";
+import { JsonFormat } from "./json-format.js";
+import { UpdateCommand } from "./update-item.js";
 
 export function TypeSafeUpdateItemCommand<
   Item extends object,

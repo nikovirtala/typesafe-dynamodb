@@ -9,10 +9,10 @@ import type { Command } from "@smithy/smithy-client";
 import type {
   ExpressionAttributeNames,
   ExpressionAttributeValues,
-} from "./expression-attributes";
-import type { FormatObject, JsonFormat } from "./json-format";
-import type { TableKey } from "./key";
-import type { Narrow } from "./narrow";
+} from "./expression-attributes.js";
+import type { FormatObject, JsonFormat } from "./json-format.js";
+import type { TableKey } from "./key.js";
+import type { Narrow } from "./narrow.js";
 
 export type UpdateItemInput<
   Item extends object,

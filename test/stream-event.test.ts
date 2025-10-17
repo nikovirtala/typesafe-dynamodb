@@ -1,4 +1,5 @@
-import { DynamoDBStreamEvent } from "../src/stream-event";
+import { expect, it } from "vitest";
+import { DynamoDBStreamEvent } from "../src/stream-event.js";
 
 interface MyType {
   id: string;
@@ -6,7 +7,7 @@ interface MyType {
   children?: MyType[];
 }
 
-test("dummy", () => {
+it("should pass dummy test", () => {
   expect(1).toBe(1);
 });
 

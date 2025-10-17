@@ -6,8 +6,8 @@ import {
   Expr,
   PropRef,
   ValueRef,
-} from "./expression";
-import { Word } from "./letter";
+} from "./expression.js";
+import { Word } from "./letter.js";
 
 export type ParseProjectionExpression<Text extends string> = Parse<
   Text,

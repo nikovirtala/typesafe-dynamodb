@@ -8,8 +8,8 @@ import type { Command } from "@smithy/smithy-client";
 import type {
   ExpressionAttributeNames,
   ExpressionAttributeValues,
-} from "./expression-attributes";
-import type { FormatObject, JsonFormat } from "./json-format";
+} from "./expression-attributes.js";
+import type { FormatObject, JsonFormat } from "./json-format.js";
 
 export type QueryInput<
   Item extends object,

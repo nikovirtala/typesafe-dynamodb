@@ -1,6 +1,6 @@
 import { QueryCommand as _QueryCommand } from "@aws-sdk/lib-dynamodb";
-import type { JsonFormat } from "./json-format";
-import type { QueryCommand } from "./query";
+import type { JsonFormat } from "./json-format.js";
+import type { QueryCommand } from "./query.js";
 
 export function TypeSafeQueryDocumentCommand<
   Item extends object,

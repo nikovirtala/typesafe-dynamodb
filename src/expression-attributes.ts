@@ -1,6 +1,6 @@
-import { AttributeValue, DocumentValue } from "./attribute-value";
-import { JsonFormat } from "./json-format";
-import { Word } from "./letter";
+import { AttributeValue, DocumentValue } from "./attribute-value.js";
+import { JsonFormat } from "./json-format.js";
+import { Word } from "./letter.js";
 
 export type ExpressionAttributeValues<
   Expression extends string | undefined,

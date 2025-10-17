@@ -1,4 +1,4 @@
-import { NativeBinaryAttribute } from "./attribute-value";
+import { NativeBinaryAttribute } from "./attribute-value.js";
 
 export interface CreateSet {
   /**

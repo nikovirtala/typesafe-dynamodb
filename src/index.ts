@@ -1,1 +1,1 @@
-export { JsonFormat } from "./json-format";
+export { JsonFormat } from "./json-format.js";

@@ -2,11 +2,11 @@ import type {
   GetItemInput as DynamoDBGetItemInput,
   GetItemOutput as DynamoDBGetItemOutput,
 } from "@aws-sdk/client-dynamodb";
-import { JsonFormat, FormatObject } from "./json-format";
-import { TableKey } from "./key";
-import { Narrow } from "./narrow";
-import { ApplyProjection } from "./projection";
-import { Simplify } from "./simplify";
+import { JsonFormat, FormatObject } from "./json-format.js";
+import { TableKey } from "./key.js";
+import { Narrow } from "./narrow.js";
+import { ApplyProjection } from "./projection.js";
+import { Simplify } from "./simplify.js";
 
 export interface GetItemInput<
   Item extends object,

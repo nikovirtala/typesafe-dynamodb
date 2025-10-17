@@ -1,14 +1,14 @@
 import type { ReturnValue as DynamoDBReturnValue } from "@aws-sdk/client-dynamodb";
 import { DynamoDBDocument } from "@aws-sdk/lib-dynamodb";
 import { MetadataBearer } from "@aws-sdk/types";
-import { DeleteItemInput, DeleteItemOutput } from "./delete-item";
-import { GetItemInput, GetItemOutput } from "./get-item";
-import { JsonFormat } from "./json-format";
-import { TableKey } from "./key";
-import { PutItemInput, PutItemOutput } from "./put-item";
-import { QueryInput, QueryOutput } from "./query";
-import { ScanInput, ScanOutput } from "./scan";
-import { UpdateItemInput, UpdateItemOutput } from "./update-item";
+import { DeleteItemInput, DeleteItemOutput } from "./delete-item.js";
+import { GetItemInput, GetItemOutput } from "./get-item.js";
+import { JsonFormat } from "./json-format.js";
+import { TableKey } from "./key.js";
+import { PutItemInput, PutItemOutput } from "./put-item.js";
+import { QueryInput, QueryOutput } from "./query.js";
+import { ScanInput, ScanOutput } from "./scan.js";
+import { UpdateItemInput, UpdateItemOutput } from "./update-item.js";
 
 export interface TypeSafeDocumentClientV3<
   Item extends object,

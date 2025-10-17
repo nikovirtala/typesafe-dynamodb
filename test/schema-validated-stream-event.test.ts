@@ -1,10 +1,13 @@
-import "jest";
+import { it, expect, describe } from "vitest";
 import { z } from "zod";
 import {
   validateStreamEvent,
   validateStreamRecord,
-} from "../src/schema-validated-stream-event";
-import type { DynamoDBStreamEvent, DynamoDBRecord } from "../src/stream-event";
+} from "../src/schema-validated-stream-event.js";
+import type {
+  DynamoDBStreamEvent,
+  DynamoDBRecord,
+} from "../src/stream-event.js";
 
 const UserSchema = z.object({
   pk: z.string(),

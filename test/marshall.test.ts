@@ -1,6 +1,6 @@
-import "jest";
+import { it, expect } from "vitest";
 
-import { marshall, unmarshall } from "../src/marshall";
+import { marshall, unmarshall } from "../src/marshall.js";
 
 const myObject = {
   key: "key",
@@ -15,7 +15,7 @@ const myObject = {
   },
 } as const;
 
-test("should marshall MyItem to ToAttributeMap<MyItem>", () => {
+it("should marshall MyItem to ToAttributeMap<MyItem>", () => {
   const marshalled = marshall(myObject);
 
   marshalled.key.S;
@@ -31,7 +31,7 @@ test("should marshall MyItem to ToAttributeMap<MyItem>", () => {
   marshalled.record.M.sort.N;
 });
 
-test("should unmarshall MyItem from ToAttributeMap<MyItem>", () => {
+it("should unmarshall MyItem from ToAttributeMap<MyItem>", () => {
   const marshalled = marshall(myObject);
   const unmarshalled = unmarshall(marshalled);
 
@@ -50,7 +50,7 @@ test("should unmarshall MyItem from ToAttributeMap<MyItem>", () => {
   unmarshalled.record.sort.toString(10); // is a number
 });
 
-test("unmarshall should map numbers to string when wrapNumbers: true", () => {
+it("should map numbers to string when wrapNumbers: true in unmarshall", () => {
   const marshalled = marshall(myObject);
   const unmarshalled = unmarshall(marshalled, {
     wrapNumbers: true,

@@ -1,5 +1,5 @@
 import * as lambda from "aws-lambda";
-import { ToAttributeMap } from "./attribute-value";
+import { ToAttributeMap } from "./attribute-value.js";
 
 export interface DynamoDBStreamEvent<
   Item extends object,
