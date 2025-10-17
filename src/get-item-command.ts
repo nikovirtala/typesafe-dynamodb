@@ -1,6 +1,6 @@
 import { GetCommand as _GetCommand } from "@aws-sdk/lib-dynamodb";
-import type { GetCommand } from "./get-command";
-import type { JsonFormat } from "./json-format";
+import type { GetCommand } from "./get-command.js";
+import type { JsonFormat } from "./json-format.js";
 
 export function TypeSafeGetItemCommand<
   Item extends object,

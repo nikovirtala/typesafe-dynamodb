@@ -1,6 +1,6 @@
-import "jest";
+import { it, expect } from "vitest";
 import { z } from "zod";
-import { SchemaValidatedQueryDocumentCommand } from "../src/schema-validated-query-document-command";
+import { SchemaValidatedQueryDocumentCommand } from "../src/schema-validated-query-document-command.js";
 
 const MyTypeSchema = z.object({
   pk: z.string(),

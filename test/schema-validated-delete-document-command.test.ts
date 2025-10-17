@@ -1,6 +1,6 @@
-import "jest";
+import { it, expect } from "vitest";
 import { z } from "zod";
-import { SchemaValidatedDeleteDocumentCommand } from "../src/schema-validated-delete-document-command";
+import { SchemaValidatedDeleteDocumentCommand } from "../src/schema-validated-delete-document-command.js";
 
 const MyTypeSchema = z.object({
   pk: z.string(),

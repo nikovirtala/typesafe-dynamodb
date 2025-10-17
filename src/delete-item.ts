@@ -9,9 +9,9 @@ import type { Command } from "@smithy/smithy-client";
 import type {
   ExpressionAttributeNames,
   ExpressionAttributeValues,
-} from "./expression-attributes";
-import type { FormatObject, JsonFormat } from "./json-format";
-import type { TableKey } from "./key";
+} from "./expression-attributes.js";
+import type { FormatObject, JsonFormat } from "./json-format.js";
+import type { TableKey } from "./key.js";
 
 export type DeleteItemInput<
   Item extends object,

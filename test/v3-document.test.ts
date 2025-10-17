@@ -1,13 +1,12 @@
-import "jest";
-
 import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
 import { DynamoDBDocumentClient } from "@aws-sdk/lib-dynamodb";
-import { TypeSafeDeleteDocumentCommand } from "../src/delete-document-command";
-import { TypeSafeDocumentClientV3 } from "../src/document-client-v3";
-import { TypeSafeGetDocumentCommand } from "../src/get-document-command";
-import { TypeSafePutDocumentCommand } from "../src/put-document-command";
-import { TypeSafeQueryDocumentCommand } from "../src/query-document-command";
-import { TypeSafeUpdateDocumentCommand } from "../src/update-document-command";
+import { it, expect } from "vitest";
+import { TypeSafeDeleteDocumentCommand } from "../src/delete-document-command.js";
+import { TypeSafeDocumentClientV3 } from "../src/document-client-v3.js";
+import { TypeSafeGetDocumentCommand } from "../src/get-document-command.js";
+import { TypeSafePutDocumentCommand } from "../src/put-document-command.js";
+import { TypeSafeQueryDocumentCommand } from "../src/query-document-command.js";
+import { TypeSafeUpdateDocumentCommand } from "../src/update-document-command.js";
 
 interface MyType {
   key: string;
@@ -35,7 +34,7 @@ const DeleteItemCommand = TypeSafeDeleteDocumentCommand<
 >();
 const QueryCommand = TypeSafeQueryDocumentCommand<MyType>();
 
-it("dummy", async () => {
+it("should pass dummy test", async () => {
   expect(1).toBe(1);
 });
 

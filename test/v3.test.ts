@@ -1,13 +1,13 @@
 // @ts-nocheck - disabling so we can publish types that work with document client
 
-import "jest";
-
 import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
-import { TypeSafeDeleteItemCommand } from "../src/delete-item-command";
-import { TypeSafeGetItemCommand } from "../src/get-item-command";
-import { TypeSafePutItemCommand } from "../src/put-item-command";
-import { TypeSafeQueryCommand } from "../src/query-command";
-import { TypeSafeUpdateItemCommand } from "../src/update-item-command";
+import { it, expect } from "vitest";
+
+import { TypeSafeDeleteItemCommand } from "../src/delete-item-command.js";
+import { TypeSafeGetItemCommand } from "../src/get-item-command.js";
+import { TypeSafePutItemCommand } from "../src/put-item-command.js";
+import { TypeSafeQueryCommand } from "../src/query-command.js";
+import { TypeSafeUpdateItemCommand } from "../src/update-item-command.js";
 
 interface MyType {
   key: string;
@@ -23,7 +23,7 @@ const GetItemCommand = TypeSafeGetItemCommand<MyType, "key", "sort">();
 const DeleteItemCommand = TypeSafeDeleteItemCommand<MyType, "key", "sort">();
 const QueryCommand = TypeSafeQueryCommand<MyType>();
 
-it("dummy", () => {
+it("should pass dummy test", () => {
   expect(1).toBe(1);
 });
 

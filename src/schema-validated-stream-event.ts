@@ -1,6 +1,6 @@
 import { z } from "zod";
-import { marshall, unmarshall } from "./marshall";
-import type { DynamoDBStreamEvent, DynamoDBRecord } from "./stream-event";
+import { marshall, unmarshall } from "./marshall.js";
+import type { DynamoDBStreamEvent, DynamoDBRecord } from "./stream-event.js";
 
 export function validateStreamEvent<
   Item extends object,

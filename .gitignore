@@ -33,9 +33,6 @@ jspm_packages/
 .cache
 .DS_Store
 .dccache
-/test-reports/
-junit.xml
-/coverage/
 !/.github/workflows/build.yml
 /dist/changelog.md
 /dist/version.txt
@@ -52,4 +49,6 @@ junit.xml
 /lib
 /dist/
 !/.eslintrc.json
+/coverage/
+!/vitest.config.ts
 !/.projenrc.ts

@@ -1,3 +1,4 @@
+import { Vitest } from "@nikovirtala/projen-vitest";
 import { javascript, typescript } from "projen";
 
 const project = new typescript.TypeScriptProject({
@@ -6,7 +7,16 @@ const project = new typescript.TypeScriptProject({
   projenrcTs: true,
   typescriptVersion: "latest",
   repository: "https://github.com/nikovirtala/typesafe-dynamodb",
+  tsconfig: {
+    compilerOptions: {
+      lib: ["ES2023"],
+      module: "NodeNext",
+      moduleResolution: javascript.TypeScriptModuleResolution.NODE_NEXT,
+      target: "ES2023",
+    },
+  },
   deps: ["zod"],
+  devDeps: ["@nikovirtala/projen-vitest"],
   peerDeps: [
     "@aws-sdk/client-dynamodb",
     "@aws-sdk/lib-dynamodb",
@@ -31,6 +41,19 @@ const project = new typescript.TypeScriptProject({
   mergify: true,
   autoMerge: true,
   npmAccess: javascript.NpmAccess.PUBLIC,
+  jest: false,
+  minNodeVersion: "22.15.0",
 });
+
+project.package.addField("type", "module");
+
+project.deps.removeDependency("ts-node");
+project.addDevDeps("tsx");
+project.defaultTask?.reset();
+project.defaultTask?.exec(
+  `tsx --tsconfig ${project.tsconfigDev?.file.path} .projenrc.ts`,
+);
+
+new Vitest(project);
 
 project.synth();

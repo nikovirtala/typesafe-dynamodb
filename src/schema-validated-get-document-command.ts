@@ -1,7 +1,7 @@
 import { GetCommand as _GetCommand } from "@aws-sdk/lib-dynamodb";
 import { z } from "zod";
-import type { GetCommand } from "./get-command";
-import type { JsonFormat } from "./json-format";
+import type { GetCommand } from "./get-command.js";
+import type { JsonFormat } from "./json-format.js";
 
 export function SchemaValidatedGetDocumentCommand<
   Item extends object,

@@ -1,6 +1,6 @@
 import { DeleteItemCommand as _DeleteItemCommand } from "@aws-sdk/client-dynamodb";
-import type { DeleteCommand } from "./delete-item";
-import type { JsonFormat } from "./json-format";
+import type { DeleteCommand } from "./delete-item.js";
+import type { JsonFormat } from "./json-format.js";
 
 export function TypeSafeDeleteItemCommand<
   Item extends object,

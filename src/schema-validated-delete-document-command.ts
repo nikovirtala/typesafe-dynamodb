@@ -1,7 +1,7 @@
 import { DeleteCommand as _DeleteCommand } from "@aws-sdk/lib-dynamodb";
 import { z } from "zod";
-import type { DeleteCommand } from "./delete-item";
-import type { JsonFormat } from "./json-format";
+import type { DeleteCommand } from "./delete-item.js";
+import type { JsonFormat } from "./json-format.js";
 
 export function SchemaValidatedDeleteDocumentCommand<
   Item extends object,

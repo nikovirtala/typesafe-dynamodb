@@ -1,5 +1,5 @@
-import { JsonFormat } from "./json-format";
-import { TableKey, TableKeyAttributeToObject } from "./key";
+import { JsonFormat } from "./json-format.js";
+import { TableKey, TableKeyAttributeToObject } from "./key.js";
 
 export type Narrow<
   Item extends object,

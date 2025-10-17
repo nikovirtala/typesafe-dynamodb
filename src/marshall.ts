@@ -13,7 +13,7 @@ import {
   NativeBinaryAttribute,
   S,
   ToAttributeMap,
-} from "./attribute-value";
+} from "./attribute-value.js";
 
 export const marshall: <
   Item extends object,

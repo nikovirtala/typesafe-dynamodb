@@ -88,7 +88,7 @@
       "description": "Synthesize project files",
       "steps": [
         {
-          "exec": "ts-node --project tsconfig.dev.json .projenrc.ts"
+          "exec": "tsx --tsconfig tsconfig.dev.json .projenrc.ts"
         }
       ]
     },
@@ -108,7 +108,8 @@
       "name": "eslint",
       "description": "Runs eslint against the codebase",
       "env": {
-        "ESLINT_USE_FLAT_CONFIG": "false"
+        "ESLINT_USE_FLAT_CONFIG": "false",
+        "NODE_NO_WARNINGS": "1"
       },
       "steps": [
         {
@@ -188,20 +189,29 @@
       "description": "Run tests",
       "steps": [
         {
-          "exec": "jest --passWithNoTests --updateSnapshot",
-          "receiveArgs": true
+          "spawn": "eslint"
         },
         {
-          "spawn": "eslint"
+          "exec": "vitest run",
+          "receiveArgs": true
+        }
+      ]
+    },
+    "test:update": {
+      "name": "test:update",
+      "steps": [
+        {
+          "exec": "vitest --update",
+          "receiveArgs": true
         }
       ]
     },
     "test:watch": {
       "name": "test:watch",
-      "description": "Run jest in watch mode",
       "steps": [
         {
-          "exec": "jest --watch"
+          "exec": "vitest watch",
+          "receiveArgs": true
         }
       ]
     },
@@ -230,13 +240,13 @@
       },
       "steps": [
         {
-          "exec": "npx npm-check-updates@16 --upgrade --target=minor --peer --no-deprecated --dep=dev,peer,prod,optional --filter=@types/jest,@types/node,eslint-config-prettier,eslint-import-resolver-typescript,eslint-plugin-import,eslint-plugin-prettier,jest,prettier,projen,ts-jest,ts-node,@aws-sdk/client-dynamodb,@aws-sdk/lib-dynamodb,@aws-sdk/types,@aws-sdk/util-dynamodb,@smithy/smithy-client,@types/aws-lambda,zod"
+          "exec": "npx npm-check-updates@16 --upgrade --target=minor --peer --no-deprecated --dep=dev,peer,prod,optional --filter=@nikovirtala/projen-vitest,eslint-config-prettier,eslint-import-resolver-typescript,eslint-plugin-import,eslint-plugin-prettier,prettier,projen,tsx,@aws-sdk/client-dynamodb,@aws-sdk/lib-dynamodb,@aws-sdk/types,@aws-sdk/util-dynamodb,@smithy/smithy-client,@types/aws-lambda,zod"
         },
         {
           "exec": "yarn install --check-files"
         },
         {
-          "exec": "yarn upgrade @types/jest @types/node @typescript-eslint/eslint-plugin @typescript-eslint/parser commit-and-tag-version constructs eslint-config-prettier eslint-import-resolver-typescript eslint-plugin-import eslint-plugin-prettier eslint jest jest-junit prettier projen ts-jest ts-node typescript @aws-sdk/client-dynamodb @aws-sdk/lib-dynamodb @aws-sdk/types @aws-sdk/util-dynamodb @smithy/smithy-client @types/aws-lambda zod"
+          "exec": "yarn upgrade @nikovirtala/projen-vitest @types/node @typescript-eslint/eslint-plugin @typescript-eslint/parser commit-and-tag-version constructs eslint-config-prettier eslint-import-resolver-typescript eslint-plugin-import eslint-plugin-prettier eslint prettier projen tsx typescript vitest @vitest/coverage-v8 @aws-sdk/client-dynamodb @aws-sdk/lib-dynamodb @aws-sdk/types @aws-sdk/util-dynamodb @smithy/smithy-client @types/aws-lambda zod"
         },
         {
           "exec": "npx projen"
