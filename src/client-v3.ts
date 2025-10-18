@@ -3,6 +3,10 @@ import type {
   ReturnValue as DynamoDBReturnValue,
 } from "@aws-sdk/client-dynamodb";
 import { MetadataBearer } from "@aws-sdk/types";
+import {
+  BatchWriteItemInput,
+  BatchWriteItemOutput,
+} from "./batch-write-item.js";
 import { DeleteItemInput, DeleteItemOutput } from "./delete-item.js";
 import { GetItemInput, GetItemOutput } from "./get-item.js";
 import { JsonFormat } from "./json-format.js";
@@ -28,6 +32,7 @@ export interface TypeSafeDynamoDBv3<
     | "updateItem"
     | "query"
     | "scan"
+    | "batchWriteItem"
     | "transactWriteItems"
   > {
   getItem<
@@ -217,6 +222,12 @@ export interface TypeSafeDynamoDBv3<
   ): Promise<
     ScanOutput<Item, AttributesToGet, JsonFormat.AttributeValue> &
       MetadataBearer
+  >;
+
+  batchWriteItem(
+    params: BatchWriteItemInput<Item, JsonFormat.AttributeValue>,
+  ): Promise<
+    BatchWriteItemOutput<Item, JsonFormat.AttributeValue> & MetadataBearer
   >;
 
   transactWriteItems(
