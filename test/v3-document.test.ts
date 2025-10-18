@@ -1,6 +1,7 @@
 import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
 import { DynamoDBDocumentClient } from "@aws-sdk/lib-dynamodb";
 import { it, expect } from "vitest";
+import { TypeSafeBatchWriteDocumentCommand } from "../src/batch-write-document-command.js";
 import { TypeSafeDeleteDocumentCommand } from "../src/delete-document-command.js";
 import { TypeSafeDocumentClientV3 } from "../src/document-client-v3.js";
 import { TypeSafeGetDocumentCommand } from "../src/get-document-command.js";
@@ -20,6 +21,7 @@ const docClient = DynamoDBDocumentClient.from(
   client,
 ) as TypeSafeDocumentClientV3<MyType, "key", "sort">;
 
+const BatchWriteItemCommand = TypeSafeBatchWriteDocumentCommand<MyType>();
 const PutItemCommand = TypeSafePutDocumentCommand<MyType>();
 const UpdateItemCommand = TypeSafeUpdateDocumentCommand<
   MyType,
@@ -304,4 +306,34 @@ export async function updateItemDocClient() {
     ReturnValues: "UPDATED_OLD",
   });
   returnUpdatedOld.Attributes?.key?.length;
+}
+export async function batchWriteItem() {
+  const batchWrite = await docClient.send(
+    new BatchWriteItemCommand({
+      RequestItems: {
+        MyTable: [
+          {
+            PutRequest: {
+              Item: {
+                key: "test",
+                sort: 1,
+                list: ["item1"],
+              },
+            },
+          },
+          {
+            DeleteRequest: {
+              Key: {
+                key: "delete-key",
+                sort: 2,
+              },
+            },
+          },
+        ],
+      },
+    }),
+  );
+
+  batchWrite.UnprocessedItems?.MyTable?.[0]?.PutRequest?.Item.key?.length;
+  batchWrite.UnprocessedItems?.MyTable?.[0]?.DeleteRequest?.Key.key?.length;
 }
