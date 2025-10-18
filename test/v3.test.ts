@@ -8,6 +8,7 @@ import { TypeSafeDeleteItemCommand } from "../src/delete-item-command.js";
 import { TypeSafeGetItemCommand } from "../src/get-item-command.js";
 import { TypeSafePutItemCommand } from "../src/put-item-command.js";
 import { TypeSafeQueryCommand } from "../src/query-command.js";
+import { TypeSafeTransactWriteItemsCommand } from "../src/transact-write-items-command.js";
 import { TypeSafeUpdateItemCommand } from "../src/update-item-command.js";
 
 interface MyType {
@@ -20,6 +21,11 @@ const client = new DynamoDBClient({});
 
 const BatchWriteItemCommand = TypeSafeBatchWriteItemCommand<MyType>();
 const PutItemCommand = TypeSafePutItemCommand<MyType>();
+const TransactWriteItemsCommand = TypeSafeTransactWriteItemsCommand<
+  MyType,
+  "key",
+  "sort"
+>();
 const UpdateItemCommand = TypeSafeUpdateItemCommand<MyType, "key", "sort">();
 const GetItemCommand = TypeSafeGetItemCommand<MyType, "key", "sort">();
 const DeleteItemCommand = TypeSafeDeleteItemCommand<MyType, "key", "sort">();
@@ -246,4 +252,67 @@ export async function batchWriteItem() {
 
   batchWrite.UnprocessedItems?.MyTable?.[0]?.PutRequest?.Item.key?.S;
   batchWrite.UnprocessedItems?.MyTable?.[0]?.DeleteRequest?.Key.key?.S;
+}
+
+export async function transactWriteItems() {
+  const transactWrite = await client.send(
+    new TransactWriteItemsCommand({
+      TransactItems: [
+        {
+          Put: {
+            TableName: "MyTable",
+            Item: {
+              key: { S: "test" },
+              sort: { N: "1" },
+              list: { L: [{ S: "item1" }] },
+            },
+            ConditionExpression: "attribute_not_exists(#k)",
+            ExpressionAttributeNames: {
+              "#k": "key",
+            },
+          },
+        },
+        {
+          Update: {
+            TableName: "MyTable",
+            Key: {
+              key: { S: "update-key" },
+              sort: { N: "2" },
+            },
+            UpdateExpression: "SET #l = :val",
+            ExpressionAttributeNames: {
+              "#l": "list",
+            },
+            ExpressionAttributeValues: {
+              ":val": { L: [{ S: "updated" }] },
+            },
+          },
+        },
+        {
+          Delete: {
+            TableName: "MyTable",
+            Key: {
+              key: { S: "delete-key" },
+              sort: { N: "3" },
+            },
+          },
+        },
+        {
+          ConditionCheck: {
+            TableName: "MyTable",
+            Key: {
+              key: { S: "check-key" },
+              sort: { N: "4" },
+            },
+            ConditionExpression: "attribute_exists(#k)",
+            ExpressionAttributeNames: {
+              "#k": "key",
+            },
+          },
+        },
+      ],
+    }),
+  );
+
+  transactWrite.ItemCollectionMetrics?.MyTable?.[0]?.ItemCollectionKey?.key?.S;
 }

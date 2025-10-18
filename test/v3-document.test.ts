@@ -7,6 +7,7 @@ import { TypeSafeDocumentClientV3 } from "../src/document-client-v3.js";
 import { TypeSafeGetDocumentCommand } from "../src/get-document-command.js";
 import { TypeSafePutDocumentCommand } from "../src/put-document-command.js";
 import { TypeSafeQueryDocumentCommand } from "../src/query-document-command.js";
+import { TypeSafeTransactWriteDocumentCommand } from "../src/transact-write-documents-command.js";
 import { TypeSafeUpdateDocumentCommand } from "../src/update-document-command.js";
 
 interface MyType {
@@ -23,6 +24,11 @@ const docClient = DynamoDBDocumentClient.from(
 
 const BatchWriteItemCommand = TypeSafeBatchWriteDocumentCommand<MyType>();
 const PutItemCommand = TypeSafePutDocumentCommand<MyType>();
+const TransactWriteItemsCommand = TypeSafeTransactWriteDocumentCommand<
+  MyType,
+  "key",
+  "sort"
+>();
 const UpdateItemCommand = TypeSafeUpdateDocumentCommand<
   MyType,
   "key",
@@ -336,4 +342,130 @@ export async function batchWriteItem() {
 
   batchWrite.UnprocessedItems?.MyTable?.[0]?.PutRequest?.Item.key?.length;
   batchWrite.UnprocessedItems?.MyTable?.[0]?.DeleteRequest?.Key.key?.length;
+}
+
+export async function transactWriteItems() {
+  const transactWrite = await docClient.send(
+    new TransactWriteItemsCommand({
+      TransactItems: [
+        {
+          Put: {
+            TableName: "MyTable",
+            Item: {
+              key: "test",
+              sort: 1,
+              list: ["item1"],
+            },
+            ConditionExpression: "attribute_not_exists(#k)",
+            ExpressionAttributeNames: {
+              "#k": "key",
+            },
+          },
+        },
+        {
+          Update: {
+            TableName: "MyTable",
+            Key: {
+              key: "update-key",
+              sort: 2,
+            },
+            UpdateExpression: "SET #l = :val",
+            ExpressionAttributeNames: {
+              "#l": "list",
+            },
+            ExpressionAttributeValues: {
+              ":val": ["updated"],
+            },
+          },
+        },
+        {
+          Delete: {
+            TableName: "MyTable",
+            Key: {
+              key: "delete-key",
+              sort: 3,
+            },
+          },
+        },
+        {
+          ConditionCheck: {
+            TableName: "MyTable",
+            Key: {
+              key: "check-key",
+              sort: 4,
+            },
+            ConditionExpression: "attribute_exists(#k)",
+            ExpressionAttributeNames: {
+              "#k": "key",
+            },
+          },
+        },
+      ],
+    }),
+  );
+
+  transactWrite.ItemCollectionMetrics?.MyTable?.[0]?.ItemCollectionKey?.key
+    ?.length;
+}
+
+export async function transactWriteItemsDocClient() {
+  const transactWrite = await docClient.transactWrite({
+    TransactItems: [
+      {
+        Put: {
+          TableName: "MyTable",
+          Item: {
+            key: "test",
+            sort: 1,
+            list: ["item1"],
+          },
+          ConditionExpression: "attribute_not_exists(#k)",
+          ExpressionAttributeNames: {
+            "#k": "key",
+          },
+        },
+      },
+      {
+        Update: {
+          TableName: "MyTable",
+          Key: {
+            key: "update-key",
+            sort: 2,
+          },
+          UpdateExpression: "SET #l = :val",
+          ExpressionAttributeNames: {
+            "#l": "list",
+          },
+          ExpressionAttributeValues: {
+            ":val": ["updated"],
+          },
+        },
+      },
+      {
+        Delete: {
+          TableName: "MyTable",
+          Key: {
+            key: "delete-key",
+            sort: 3,
+          },
+        },
+      },
+      {
+        ConditionCheck: {
+          TableName: "MyTable",
+          Key: {
+            key: "check-key",
+            sort: 4,
+          },
+          ConditionExpression: "attribute_exists(#k)",
+          ExpressionAttributeNames: {
+            "#k": "key",
+          },
+        },
+      },
+    ],
+  });
+
+  transactWrite.ItemCollectionMetrics?.MyTable?.[0]?.ItemCollectionKey?.key
+    ?.length;
 }

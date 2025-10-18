@@ -8,6 +8,10 @@ import { TableKey } from "./key.js";
 import { PutItemInput, PutItemOutput } from "./put-item.js";
 import { QueryInput, QueryOutput } from "./query.js";
 import { ScanInput, ScanOutput } from "./scan.js";
+import {
+  TransactWriteItemsInput,
+  TransactWriteItemsOutput,
+} from "./transact-write-items.js";
 import { UpdateItemInput, UpdateItemOutput } from "./update-item.js";
 
 export interface TypeSafeDocumentClientV3<
@@ -16,7 +20,7 @@ export interface TypeSafeDocumentClientV3<
   RangeKey extends keyof Item | undefined = undefined,
 > extends Omit<
     DynamoDBDocument,
-    "get" | "delete" | "put" | "update" | "query" | "scan"
+    "get" | "delete" | "put" | "update" | "query" | "scan" | "transactWrite"
   > {
   get<
     Key extends TableKey<Item, PartitionKey, RangeKey, JsonFormat.Document>,
@@ -179,5 +183,22 @@ export interface TypeSafeDocumentClientV3<
     >,
   ): Promise<
     ScanOutput<Item, AttributesToGet, JsonFormat.Document> & MetadataBearer
+  >;
+
+  transactWrite(
+    params: TransactWriteItemsInput<
+      Item,
+      PartitionKey,
+      RangeKey,
+      JsonFormat.Document
+    >,
+  ): Promise<
+    TransactWriteItemsOutput<
+      Item,
+      PartitionKey,
+      RangeKey,
+      JsonFormat.Document
+    > &
+      MetadataBearer
   >;
 }
