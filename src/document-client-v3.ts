@@ -1,6 +1,10 @@
 import type { ReturnValue as DynamoDBReturnValue } from "@aws-sdk/client-dynamodb";
 import { DynamoDBDocument } from "@aws-sdk/lib-dynamodb";
 import { MetadataBearer } from "@aws-sdk/types";
+import {
+  BatchWriteItemInput,
+  BatchWriteItemOutput,
+} from "./batch-write-item.js";
 import { DeleteItemInput, DeleteItemOutput } from "./delete-item.js";
 import { GetItemInput, GetItemOutput } from "./get-item.js";
 import { JsonFormat } from "./json-format.js";
@@ -20,7 +24,14 @@ export interface TypeSafeDocumentClientV3<
   RangeKey extends keyof Item | undefined = undefined,
 > extends Omit<
     DynamoDBDocument,
-    "get" | "delete" | "put" | "update" | "query" | "scan" | "transactWrite"
+    | "get"
+    | "delete"
+    | "put"
+    | "update"
+    | "query"
+    | "scan"
+    | "batchWrite"
+    | "transactWrite"
   > {
   get<
     Key extends TableKey<Item, PartitionKey, RangeKey, JsonFormat.Document>,
@@ -184,6 +195,10 @@ export interface TypeSafeDocumentClientV3<
   ): Promise<
     ScanOutput<Item, AttributesToGet, JsonFormat.Document> & MetadataBearer
   >;
+
+  batchWrite(
+    params: BatchWriteItemInput<Item, JsonFormat.Document>,
+  ): Promise<BatchWriteItemOutput<Item, JsonFormat.Document> & MetadataBearer>;
 
   transactWrite(
     params: TransactWriteItemsInput<
