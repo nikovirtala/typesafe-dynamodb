@@ -3,6 +3,7 @@
 import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
 import { it, expect } from "vitest";
 
+import { TypeSafeBatchWriteItemCommand } from "../src/batch-write-item-command.js";
 import { TypeSafeDeleteItemCommand } from "../src/delete-item-command.js";
 import { TypeSafeGetItemCommand } from "../src/get-item-command.js";
 import { TypeSafePutItemCommand } from "../src/put-item-command.js";
@@ -17,6 +18,11 @@ interface MyType {
 
 const client = new DynamoDBClient({});
 
+const BatchWriteItemCommand = TypeSafeBatchWriteItemCommand<
+  MyType,
+  "key",
+  "sort"
+>();
 const PutItemCommand = TypeSafePutItemCommand<MyType>();
 const UpdateItemCommand = TypeSafeUpdateItemCommand<MyType, "key", "sort">();
 const GetItemCommand = TypeSafeGetItemCommand<MyType, "key", "sort">();
@@ -213,4 +219,35 @@ export async function updateItem() {
     }),
   );
   returnUpdatedOld.Attributes?.key?.S;
+}
+
+export async function batchWriteItem() {
+  const batchWrite = await client.send(
+    new BatchWriteItemCommand({
+      RequestItems: {
+        MyTable: [
+          {
+            PutRequest: {
+              Item: {
+                key: { S: "test" },
+                sort: { N: "1" },
+                list: { L: [{ S: "item1" }] },
+              },
+            },
+          },
+          {
+            DeleteRequest: {
+              Key: {
+                key: { S: "delete-key" },
+                sort: { N: "2" },
+              },
+            },
+          },
+        ],
+      },
+    }),
+  );
+
+  batchWrite.UnprocessedItems?.MyTable?.[0]?.PutRequest?.Item.key?.S;
+  batchWrite.UnprocessedItems?.MyTable?.[0]?.DeleteRequest?.Key.key?.S;
 }
