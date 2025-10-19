@@ -11,8 +11,11 @@ export function SchemaValidatedUpdateDocumentCommand<
   schema: z.ZodSchema<Item>,
 ): UpdateCommand<Item, PartitionKey, RangeKey, JsonFormat.Document> & {
   _schema: z.ZodSchema<Item>;
+  _brand: "UpdateItemCommand";
 } {
-  const Command = _UpdateCommand as any;
-  Command._schema = schema;
-  return Command;
+  class SchemaValidatedCommand extends _UpdateCommand {
+    _brand = "UpdateItemCommand" as const;
+  }
+  (SchemaValidatedCommand as any)._schema = schema;
+  return SchemaValidatedCommand as any;
 }

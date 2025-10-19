@@ -7,8 +7,11 @@ export function SchemaValidatedPutDocumentCommand<Item extends object>(
   schema: z.ZodSchema<Item>,
 ): PutCommand<Item, JsonFormat.Document> & {
   _schema: z.ZodSchema<Item>;
+  _brand: "PutItemCommand";
 } {
-  const Command = _PutCommand as any;
-  Command._schema = schema;
-  return Command;
+  class SchemaValidatedCommand extends _PutCommand {
+    _brand = "PutItemCommand" as const;
+  }
+  (SchemaValidatedCommand as any)._schema = schema;
+  return SchemaValidatedCommand as any;
 }

@@ -7,8 +7,11 @@ export function SchemaValidatedQueryDocumentCommand<Item extends object>(
   schema: z.ZodSchema<Item>,
 ): QueryCommand<Item, JsonFormat.Document> & {
   _schema: z.ZodSchema<Item>;
+  _brand: "QueryCommand";
 } {
-  const Command = _QueryCommand as any;
-  Command._schema = schema;
-  return Command;
+  class SchemaValidatedCommand extends _QueryCommand {
+    _brand = "QueryCommand" as const;
+  }
+  (SchemaValidatedCommand as any)._schema = schema;
+  return SchemaValidatedCommand as any;
 }

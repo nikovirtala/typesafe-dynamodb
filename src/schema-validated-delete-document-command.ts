@@ -11,8 +11,11 @@ export function SchemaValidatedDeleteDocumentCommand<
   schema: z.ZodSchema<Item>,
 ): DeleteCommand<Item, PartitionKey, RangeKey, JsonFormat.Document> & {
   _schema: z.ZodSchema<Item>;
+  _brand: "DeleteItemCommand";
 } {
-  const Command = _DeleteCommand as any;
-  Command._schema = schema;
-  return Command;
+  class SchemaValidatedCommand extends _DeleteCommand {
+    _brand = "DeleteItemCommand" as const;
+  }
+  (SchemaValidatedCommand as any)._schema = schema;
+  return SchemaValidatedCommand as any;
 }

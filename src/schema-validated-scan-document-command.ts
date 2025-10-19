@@ -7,8 +7,11 @@ export function SchemaValidatedScanDocumentCommand<Item extends object>(
   schema: z.ZodSchema<Item>,
 ): ScanCommand<Item, JsonFormat.Document> & {
   _schema: z.ZodSchema<Item>;
+  _brand: "ScanCommand";
 } {
-  const Command = _ScanCommand as any;
-  Command._schema = schema;
-  return Command;
+  class SchemaValidatedCommand extends _ScanCommand {
+    _brand = "ScanCommand" as const;
+  }
+  (SchemaValidatedCommand as any)._schema = schema;
+  return SchemaValidatedCommand as any;
 }

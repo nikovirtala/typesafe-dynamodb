@@ -4,7 +4,7 @@ import { z } from "zod";
 export class SchemaValidatedDocumentClient {
   constructor(private client: DynamoDBDocumentClient) {}
 
-  async send<T, Item extends object>(
+  async send<T, Item extends object = any>(
     command: T,
     schema?: z.ZodSchema<Item>,
   ): Promise<

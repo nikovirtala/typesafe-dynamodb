@@ -11,8 +11,11 @@ export function SchemaValidatedGetDocumentCommand<
   schema: z.ZodSchema<Item>,
 ): GetCommand<Item, PartitionKey, RangeKey, JsonFormat.Document> & {
   _schema: z.ZodSchema<Item>;
+  _brand: "GetItemCommand";
 } {
-  const Command = _GetCommand as any;
-  Command._schema = schema;
-  return Command;
+  class SchemaValidatedCommand extends _GetCommand {
+    _brand = "GetItemCommand" as const;
+  }
+  (SchemaValidatedCommand as any)._schema = schema;
+  return SchemaValidatedCommand as any;
 }
