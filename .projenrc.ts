@@ -43,6 +43,7 @@ const project = new typescript.TypeScriptProject({
   npmAccess: javascript.NpmAccess.PUBLIC,
   jest: false,
   minNodeVersion: "22.15.0",
+  packageManager: javascript.NodePackageManager.PNPM,
 });
 
 project.package.addField("type", "module");
