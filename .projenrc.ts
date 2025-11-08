@@ -1,5 +1,5 @@
 import { Vitest } from "@nikovirtala/projen-vitest";
-import { javascript, typescript } from "projen";
+import { javascript, JsonPatch, typescript } from "projen";
 
 const project = new typescript.TypeScriptProject({
   defaultReleaseBranch: "main",
@@ -57,5 +57,12 @@ project.defaultTask?.exec(
 );
 
 new Vitest(project);
+
+// use node.js 24.x to get new enough npm to satisfy: trusted publishing requires npm CLI version 11.5.1 or later.
+project.github
+  ?.tryFindWorkflow("release")
+  ?.file?.patch(
+    JsonPatch.replace("/jobs/release_npm/steps/0/with/node-version", "24.x"),
+  );
 
 project.synth();
