@@ -41,6 +41,7 @@ const project = new typescript.TypeScriptProject({
   mergify: true,
   autoMerge: true,
   npmAccess: javascript.NpmAccess.PUBLIC,
+  npmTrustedPublishing: true,
   jest: false,
   minNodeVersion: "22.15.0",
   packageManager: javascript.NodePackageManager.PNPM,
