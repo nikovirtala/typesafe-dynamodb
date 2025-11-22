@@ -240,7 +240,7 @@
       },
       "steps": [
         {
-          "exec": "pnpm dlx npm-check-updates@16 --upgrade --target=minor --peer --no-deprecated --dep=dev,peer,prod,optional --filter=@nikovirtala/projen-vitest,eslint-config-prettier,eslint-import-resolver-typescript,eslint-plugin-import,eslint-plugin-prettier,prettier,projen,tsx,@aws-sdk/client-dynamodb,@aws-sdk/lib-dynamodb,@aws-sdk/types,@aws-sdk/util-dynamodb,@smithy/smithy-client,@types/aws-lambda,zod"
+          "exec": "pnpm dlx npm-check-updates@18 --upgrade --target=minor --peer --no-deprecated --dep=dev,peer,prod,optional --filter=@nikovirtala/projen-vitest,eslint-config-prettier,eslint-import-resolver-typescript,eslint-plugin-import,eslint-plugin-prettier,prettier,projen,tsx,@aws-sdk/client-dynamodb,@aws-sdk/lib-dynamodb,@aws-sdk/types,@aws-sdk/util-dynamodb,@smithy/smithy-client,@types/aws-lambda,zod"
         },
         {
           "exec": "pnpm i --no-frozen-lockfile"
