@@ -30,7 +30,7 @@
     "@aws-sdk/lib-dynamodb": "3.936.0",
     "@aws-sdk/types": "3.936.0",
     "@aws-sdk/util-dynamodb": "3.936.0",
-    "@nikovirtala/projen-vitest": "^2.1.11",
+    "@nikovirtala/projen-vitest": "^2.1.12",
     "@smithy/smithy-client": "4.9.8",
     "@types/aws-lambda": "8.10.159",
     "@types/node": "^22",
@@ -45,18 +45,18 @@
     "eslint-plugin-import": "^2.32.0",
     "eslint-plugin-prettier": "^5.5.4",
     "prettier": "^3.6.2",
-    "projen": "^0.98.17",
+    "projen": "^0.98.18",
     "tsx": "^4.20.6",
     "typescript": "latest",
     "vitest": "^4"
   },
   "peerDependencies": {
-    "@aws-sdk/client-dynamodb": "^3.922.0",
-    "@aws-sdk/lib-dynamodb": "^3.922.0",
-    "@aws-sdk/types": "^3.922.0",
-    "@aws-sdk/util-dynamodb": "^3.922.0",
-    "@smithy/smithy-client": "^4.9.2",
-    "@types/aws-lambda": "^8.10.157"
+    "@aws-sdk/client-dynamodb": "^3.936.0",
+    "@aws-sdk/lib-dynamodb": "^3.936.0",
+    "@aws-sdk/types": "^3.936.0",
+    "@aws-sdk/util-dynamodb": "^3.936.0",
+    "@smithy/smithy-client": "^4.9.8",
+    "@types/aws-lambda": "^8.10.159"
   },
   "dependencies": {
     "zod": "^4.1.12"
