@@ -30,7 +30,7 @@
     "@aws-sdk/lib-dynamodb": "3.936.0",
     "@aws-sdk/types": "3.936.0",
     "@aws-sdk/util-dynamodb": "3.936.0",
-    "@nikovirtala/projen-vitest": "^2.1.12",
+    "@nikovirtala/projen-vitest": "^2.1.13",
     "@smithy/smithy-client": "4.9.8",
     "@types/aws-lambda": "8.10.159",
     "@types/node": "^22",
@@ -45,7 +45,7 @@
     "eslint-plugin-import": "^2.32.0",
     "eslint-plugin-prettier": "^5.5.4",
     "prettier": "^3.6.2",
-    "projen": "^0.98.18",
+    "projen": "^0.98.20",
     "tsx": "^4.20.6",
     "typescript": "latest",
     "vitest": "^4"
