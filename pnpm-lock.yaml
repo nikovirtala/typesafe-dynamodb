@@ -25,8 +25,8 @@ importers:
         specifier: 3.940.0
         version: 3.940.0(@aws-sdk/client-dynamodb@3.940.0)
       '@nikovirtala/projen-vitest':
-        specifier: ^2.1.15
-        version: 2.1.15(constructs@10.4.3)(projen@0.98.25(constructs@10.4.3))
+        specifier: ^2.1.16
+        version: 2.1.16(constructs@10.4.3)(projen@0.98.26(constructs@10.4.3))
       '@smithy/smithy-client':
         specifier: 4.9.8
         version: 4.9.8
@@ -70,8 +70,8 @@ importers:
         specifier: ^3.6.2
         version: 3.6.2
       projen:
-        specifier: ^0.98.25
-        version: 0.98.25(constructs@10.4.3)
+        specifier: ^0.98.26
+        version: 0.98.26(constructs@10.4.3)
       tsx:
         specifier: ^4.20.6
         version: 4.20.6
@@ -513,12 +513,12 @@ packages:
   '@napi-rs/wasm-runtime@0.2.12':
     resolution: {integrity: sha512-ZVWUcfwY4E/yPitQJl481FjFo3K22D6qF0DuFH6Y/nbnE11GY5uguDxZMGXPQ8WQ0128MXQD7TnfHyK4oWoIJQ==}
 
-  '@nikovirtala/projen-vitest@2.1.15':
-    resolution: {integrity: sha512-KPJVSV6QBcL7ZYDBfXDJT+xFWmzPs4FBVQVN7vXdN4YXVsWRoH0FoN2tUFD5diEts2Q7/YD2gMK9SWOO2CT0FQ==}
+  '@nikovirtala/projen-vitest@2.1.16':
+    resolution: {integrity: sha512-DM740n1/Tikg9Y1kXxc74NuVCYOVUZ8e9Swj3YPUaIQUGeUwSI0KMLNYi3aPIHvCly0PA3LBqWZ3dWUrga0lMw==}
     engines: {node: '>= 22.21.1'}
     peerDependencies:
       constructs: ^10.4.3
-      projen: ^0.98.25
+      projen: ^0.98.26
 
   '@pkgr/core@0.2.9':
     resolution: {integrity: sha512-QNqXyfVS2wm9hweSYD2O7F0G06uurj9kZ96TRQE5Y9hU7+tgdZwIkbAKc5Ocy1HxEY2kuDQa6cQ1WRs/O5LFKA==}
@@ -2291,8 +2291,8 @@ packages:
   process-nextick-args@2.0.1:
     resolution: {integrity: sha512-3ouUOpQhtgrbOa17J7+uxOTpITYWaGP7/AhoR3+A+/1e9skrzelGi/dXzEYyvbxubEF6Wn2ypscTKiKJFFn1ag==}
 
-  projen@0.98.25:
-    resolution: {integrity: sha512-LWcraC/QZ1vgVQ5WrySOtevz9BNmTxKf7iey/UkGKYUBZlhQk4mojWQHHlIpaSmLZ12ZUwGnPdjXjd7jv1TYIw==}
+  projen@0.98.26:
+    resolution: {integrity: sha512-M92WwmFwr134VpFDVwGDdpB/pcTDKs7lwbgD5fYQn/F/T4QOSaFcCbHmp/nhw0oendGb8a9p9m/zIbalVbim4w==}
     engines: {node: '>= 16.0.0'}
     hasBin: true
     peerDependencies:
@@ -3491,10 +3491,10 @@ snapshots:
       '@tybys/wasm-util': 0.10.1
     optional: true
 
-  '@nikovirtala/projen-vitest@2.1.15(constructs@10.4.3)(projen@0.98.25(constructs@10.4.3))':
+  '@nikovirtala/projen-vitest@2.1.16(constructs@10.4.3)(projen@0.98.26(constructs@10.4.3))':
     dependencies:
       constructs: 10.4.3
-      projen: 0.98.25(constructs@10.4.3)
+      projen: 0.98.26(constructs@10.4.3)
 
   '@pkgr/core@0.2.9': {}
 
@@ -5504,7 +5504,7 @@ snapshots:
 
   process-nextick-args@2.0.1: {}
 
-  projen@0.98.25(constructs@10.4.3):
+  projen@0.98.26(constructs@10.4.3):
     dependencies:
       constructs: 10.4.3
 
