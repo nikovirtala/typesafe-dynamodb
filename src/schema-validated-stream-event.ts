@@ -26,8 +26,8 @@ export function validateStreamRecord<
   Item extends object,
   PartitionKey extends keyof Item,
   RangeKey extends keyof Item | undefined,
-  StreamViewType extends
-    import("aws-lambda").StreamRecord["StreamViewType"] = undefined,
+  StreamViewType extends import("aws-lambda").StreamRecord["StreamViewType"] =
+    undefined,
 >(
   record: DynamoDBRecord<Item, PartitionKey, RangeKey, StreamViewType>,
   schema: z.ZodSchema<Item>,

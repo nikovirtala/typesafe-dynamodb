@@ -23,16 +23,16 @@ export interface TypeSafeDocumentClientV3<
   PartitionKey extends keyof Item,
   RangeKey extends keyof Item | undefined = undefined,
 > extends Omit<
-    DynamoDBDocument,
-    | "get"
-    | "delete"
-    | "put"
-    | "update"
-    | "query"
-    | "scan"
-    | "batchWrite"
-    | "transactWrite"
-  > {
+  DynamoDBDocument,
+  | "get"
+  | "delete"
+  | "put"
+  | "update"
+  | "query"
+  | "scan"
+  | "batchWrite"
+  | "transactWrite"
+> {
   get<
     Key extends TableKey<Item, PartitionKey, RangeKey, JsonFormat.Document>,
     AttributesToGet extends keyof Item | undefined = undefined,
