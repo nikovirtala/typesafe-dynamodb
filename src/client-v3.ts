@@ -25,16 +25,16 @@ export interface TypeSafeDynamoDBv3<
   PartitionKey extends keyof Item,
   RangeKey extends keyof Item | undefined = undefined,
 > extends Omit<
-    DynamoDB,
-    | "getItem"
-    | "deleteItem"
-    | "putItem"
-    | "updateItem"
-    | "query"
-    | "scan"
-    | "batchWriteItem"
-    | "transactWriteItems"
-  > {
+  DynamoDB,
+  | "getItem"
+  | "deleteItem"
+  | "putItem"
+  | "updateItem"
+  | "query"
+  | "scan"
+  | "batchWriteItem"
+  | "transactWriteItems"
+> {
   getItem<
     Key extends TableKey<
       Item,

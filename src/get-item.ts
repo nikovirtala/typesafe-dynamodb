@@ -17,9 +17,9 @@ export interface GetItemInput<
   ProjectionExpression extends string | undefined,
   Format extends JsonFormat,
 > extends Omit<
-    DynamoDBGetItemInput,
-    "Key" | "AttributesToGet" | "ProjectionExpression"
-  > {
+  DynamoDBGetItemInput,
+  "Key" | "AttributesToGet" | "ProjectionExpression"
+> {
   Key: Key;
   AttributesToGet?: readonly AttributesToGet[] | AttributesToGet[];
   ProjectionExpression?: ProjectionExpression;
