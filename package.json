@@ -31,7 +31,7 @@
     "@aws-sdk/types": "3.936.0",
     "@aws-sdk/util-dynamodb": "3.943.0",
     "@nikovirtala/projen-vitest": "^2.1.20",
-    "@smithy/smithy-client": "4.9.9",
+    "@smithy/smithy-client": "4.9.10",
     "@types/aws-lambda": "8.10.159",
     "@types/node": "^22",
     "@typescript-eslint/eslint-plugin": "^8",
