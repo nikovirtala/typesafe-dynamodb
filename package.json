@@ -30,7 +30,7 @@
     "@aws-sdk/lib-dynamodb": "3.948.0",
     "@aws-sdk/types": "3.936.0",
     "@aws-sdk/util-dynamodb": "3.948.0",
-    "@nikovirtala/projen-vitest": "^2.1.26",
+    "@nikovirtala/projen-vitest": "^2.1.27",
     "@smithy/smithy-client": "4.9.10",
     "@types/aws-lambda": "8.10.159",
     "@types/node": "^22",
