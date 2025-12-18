@@ -19,14 +19,14 @@ importers:
         specifier: 3.953.0
         version: 3.953.0(@aws-sdk/client-dynamodb@3.953.0)
       '@aws-sdk/types':
-        specifier: 3.936.0
-        version: 3.936.0
+        specifier: 3.953.0
+        version: 3.953.0
       '@aws-sdk/util-dynamodb':
         specifier: 3.953.0
         version: 3.953.0(@aws-sdk/client-dynamodb@3.953.0)
       '@nikovirtala/projen-vitest':
-        specifier: ^2.1.29
-        version: 2.1.29(constructs@10.4.4)(projen@0.98.30(constructs@10.4.4))
+        specifier: ^2.1.30
+        version: 2.1.30(constructs@10.4.4)(projen@0.98.30(constructs@10.4.4))
       '@smithy/smithy-client':
         specifier: 4.10.1
         version: 4.10.1
@@ -190,10 +190,6 @@ packages:
 
   '@aws-sdk/token-providers@3.953.0':
     resolution: {integrity: sha512-4FWWR3lDDuIftmCEWpGejfkJu2J1VG2MUktChQshADXABfVfM0fsT7OYlO7Sy106nOe9upE4uQTWXg9YT/6ssw==}
-    engines: {node: '>=18.0.0'}
-
-  '@aws-sdk/types@3.936.0':
-    resolution: {integrity: sha512-uz0/VlMd2pP5MepdrHizd+T+OKfyK4r3OA9JI+L/lPKg0YFQosdJNCKisr6o70E3dh8iMpFYxF1UN/4uZsyARg==}
     engines: {node: '>=18.0.0'}
 
   '@aws-sdk/types@3.953.0':
@@ -679,8 +675,8 @@ packages:
   '@napi-rs/wasm-runtime@0.2.12':
     resolution: {integrity: sha512-ZVWUcfwY4E/yPitQJl481FjFo3K22D6qF0DuFH6Y/nbnE11GY5uguDxZMGXPQ8WQ0128MXQD7TnfHyK4oWoIJQ==}
 
-  '@nikovirtala/projen-vitest@2.1.29':
-    resolution: {integrity: sha512-sQtk8KuatAuh+Zi4UT5inNjPPhIPKDEGQxHtYECxYfWrfLKtQPNr9zWWl+0uAUxWV41egaBgLGf7JwFmgemDwg==}
+  '@nikovirtala/projen-vitest@2.1.30':
+    resolution: {integrity: sha512-ObKi44LfKU/dOI3sOCVJtb3dETNn/deG3JEpU5HNbP4jv1Ql2ierQcFapURo+1fMkOecNd3JeGUeQXfgYGhNoQ==}
     engines: {node: '>= 22.21.1'}
     peerDependencies:
       constructs: ^10.4.4
@@ -901,10 +897,6 @@ packages:
 
   '@smithy/types@4.10.0':
     resolution: {integrity: sha512-K9mY7V/f3Ul+/Gz4LJANZ3vJ/yiBIwCyxe0sPT4vNJK63Srvd+Yk1IzP0t+nE7XFSpIGtzR71yljtnqpUTYFlQ==}
-    engines: {node: '>=18.0.0'}
-
-  '@smithy/types@4.9.0':
-    resolution: {integrity: sha512-MvUbdnXDTwykR8cB1WZvNNwqoWVaTRA0RLlLmf/cIFNMM2cKWz01X4Ly6SMC4Kks30r8tT3Cty0jmeWfiuyHTA==}
     engines: {node: '>=18.0.0'}
 
   '@smithy/url-parser@4.2.6':
@@ -3425,11 +3417,6 @@ snapshots:
     transitivePeerDependencies:
       - aws-crt
 
-  '@aws-sdk/types@3.936.0':
-    dependencies:
-      '@smithy/types': 4.9.0
-      tslib: 2.8.1
-
   '@aws-sdk/types@3.953.0':
     dependencies:
       '@smithy/types': 4.10.0
@@ -3768,7 +3755,7 @@ snapshots:
       '@tybys/wasm-util': 0.10.1
     optional: true
 
-  '@nikovirtala/projen-vitest@2.1.29(constructs@10.4.4)(projen@0.98.30(constructs@10.4.4))':
+  '@nikovirtala/projen-vitest@2.1.30(constructs@10.4.4)(projen@0.98.30(constructs@10.4.4))':
     dependencies:
       constructs: 10.4.4
       projen: 0.98.30(constructs@10.4.4)
@@ -4013,10 +4000,6 @@ snapshots:
       tslib: 2.8.1
 
   '@smithy/types@4.10.0':
-    dependencies:
-      tslib: 2.8.1
-
-  '@smithy/types@4.9.0':
     dependencies:
       tslib: 2.8.1
 
