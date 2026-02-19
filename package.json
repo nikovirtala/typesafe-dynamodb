@@ -31,7 +31,7 @@
     "@aws-sdk/types": "3.973.1",
     "@aws-sdk/util-dynamodb": "3.992.0",
     "@nikovirtala/projen-vitest": "^2.1.35",
-    "@smithy/smithy-client": "4.11.3",
+    "@smithy/smithy-client": "4.11.5",
     "@types/aws-lambda": "8.10.160",
     "@types/node": "^22",
     "@typescript-eslint/eslint-plugin": "^8",
@@ -51,10 +51,10 @@
     "vitest": "^4"
   },
   "peerDependencies": {
-    "@aws-sdk/client-dynamodb": "^3.991.0",
-    "@aws-sdk/lib-dynamodb": "^3.991.0",
+    "@aws-sdk/client-dynamodb": "^3.993.0",
+    "@aws-sdk/lib-dynamodb": "^3.993.0",
     "@aws-sdk/types": "^3.973.1",
-    "@aws-sdk/util-dynamodb": "^3.991.0",
+    "@aws-sdk/util-dynamodb": "^3.993.0",
     "@smithy/smithy-client": "^4.11.5",
     "@types/aws-lambda": "^8.10.160"
   },
