@@ -26,10 +26,10 @@
     "projen": "npx projen"
   },
   "devDependencies": {
-    "@aws-sdk/client-dynamodb": "3.1002.0",
-    "@aws-sdk/lib-dynamodb": "3.1002.0",
-    "@aws-sdk/types": "3.973.4",
-    "@aws-sdk/util-dynamodb": "3.996.1",
+    "@aws-sdk/client-dynamodb": "3.1004.0",
+    "@aws-sdk/lib-dynamodb": "3.1004.0",
+    "@aws-sdk/types": "3.973.5",
+    "@aws-sdk/util-dynamodb": "3.996.2",
     "@nikovirtala/projen-vitest": "^2.1.35",
     "@smithy/smithy-client": "4.12.2",
     "@types/aws-lambda": "8.10.161",
@@ -45,7 +45,7 @@
     "eslint-plugin-import": "^2.32.0",
     "eslint-plugin-prettier": "^5.5.5",
     "prettier": "^3.8.1",
-    "projen": "^0.99.18",
+    "projen": "^0.99.19",
     "tsx": "^4.21.0",
     "typescript": "latest",
     "vitest": "^4"
@@ -55,7 +55,7 @@
     "@aws-sdk/lib-dynamodb": "^3.1003.0",
     "@aws-sdk/types": "^3.973.5",
     "@aws-sdk/util-dynamodb": "^3.996.2",
-    "@smithy/smithy-client": "^4.12.2",
+    "@smithy/smithy-client": "^4.12.3",
     "@types/aws-lambda": "^8.10.161"
   },
   "dependencies": {
