@@ -51,8 +51,8 @@
     "vitest": "^4"
   },
   "peerDependencies": {
-    "@aws-sdk/client-dynamodb": "^3.1004.0",
-    "@aws-sdk/lib-dynamodb": "^3.1004.0",
+    "@aws-sdk/client-dynamodb": "^3.1005.0",
+    "@aws-sdk/lib-dynamodb": "^3.1005.0",
     "@aws-sdk/types": "^3.973.5",
     "@aws-sdk/util-dynamodb": "^3.996.2",
     "@smithy/smithy-client": "^4.12.3",
