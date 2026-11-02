@@ -1,4 +1,4 @@
-import { Vitest } from "@nikovirtala/projen-vitest";
+import { Vitest } from "@nikovirtala/projen-constructs";
 import { javascript, JsonPatch, typescript } from "projen";
 
 const project = new typescript.TypeScriptProject({
@@ -16,7 +16,7 @@ const project = new typescript.TypeScriptProject({
     },
   },
   deps: ["zod"],
-  devDeps: ["@nikovirtala/projen-vitest"],
+  devDeps: ["@nikovirtala/projen-constructs"],
   peerDeps: [
     "@aws-sdk/client-dynamodb",
     "@aws-sdk/lib-dynamodb",
